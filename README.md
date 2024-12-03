@@ -122,18 +122,18 @@ Meet our amazing team of React developers:
 
    ```bash
    cd stayconnected
+   ```
+
+3. **Install dependencies**
+
+   ```bash
    npm install
    ```
 
-3. **Start the development server**
+4. **Start the development server**
 
    ```bash
    npm run dev
-   ```
-
-4. **Build for production**
-   ```bash
-   npm run build
    ```
 
 ## 🏗 Architecture
