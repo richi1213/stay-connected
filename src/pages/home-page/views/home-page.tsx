@@ -1,5 +1,5 @@
 import QuestionsList from './questions-list.tsx';
-import UserRating from './rating.tsx';
+import UserRating from './leaderboard.tsx';
 import ScreenLg from '@/components/layout/page-containers/screen-lg.tsx';
 import TagSelector from './tag-selector.tsx';
 

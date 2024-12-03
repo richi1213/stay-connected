@@ -6,18 +6,25 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const TagSelector = () => {
   const [searchParams] = useSearchParams();
-  const paramKey = searchParams.get('key');
+  const search = searchParams.get('search');
 
   const navigate = useNavigate();
+
   const { data: tags } = useQuery({
     queryKey: ['getTagsList'],
     queryFn: getTags,
   });
 
   const handleTags = (value: string[]) => {
-    const searchPath = paramKey
-      ? `?key=${paramKey}&tags=${value}`
-      : `?tags=${value}`;
+    const path = [...value].join('&tags=');
+
+    console.log('length', value.length);
+    const tagsPath = value.length > 0 ? `tags=${path}` : '';
+    const searchPath = search
+      ? `?search=${search}&${tagsPath}`
+      : value
+        ? `?${tagsPath}`
+        : '';
     navigate(searchPath);
   };
 
