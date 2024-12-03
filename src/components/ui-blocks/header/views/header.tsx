@@ -4,8 +4,26 @@ import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import ScreenLgHeader from '@/components/layout/page-containers/screen-lg-header';
+import { ChangeEvent, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Header: React.FC = () => {
+  const [searchKey, setSerachKey] = useState<string>('');
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleSearchText = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSerachKey(value);
+  };
+  const handleSearch = () => {
+    const searchPath =
+      location.search === ''
+        ? `?search=${searchKey}`
+        : `${location.search}&search=${searchKey}`;
+    navigate(searchPath);
+  };
   return (
     <div className='border-border-soft border-b'>
       <ScreenLgHeader>
@@ -15,8 +33,13 @@ const Header: React.FC = () => {
           </div>
 
           <div className='col-span-2 flex w-full items-center gap-4 md:col-span-1 md:col-start-2'>
-            <Input placeholder='Search...' />
-            <Button variant='secondary'>
+            <Input
+              placeholder='Search...'
+              name='search'
+              value={searchKey}
+              onChange={handleSearchText}
+            />
+            <Button variant='secondary' onClick={handleSearch}>
               <Search />
             </Button>
           </div>
