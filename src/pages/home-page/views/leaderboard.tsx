@@ -1,44 +1,14 @@
 import { Card } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-// import { colors } from '../static/colors';
+import { useQuery } from '@tanstack/react-query';
+import { getUsers } from '@/components/api/leaderboard';
 
 const UserRating = () => {
-  const authors = [
-    {
-      id: 1,
-      name: 'Sylvia Plath',
-      avatar:
-        'https://img.freepik.com/premium-vector/avatar-profile-vector-illustrations-website-social-networks-user-profile-icon_495897-226.jpg',
-      gender: 'female',
-    },
-    {
-      id: 2,
-      name: 'Zadie Smith',
-      avatar: '',
-      gender: 'male',
-    },
-    {
-      id: 3,
-      name: 'Mary Wollstonecraft',
-      avatar:
-        'https://img.freepik.com/premium-vector/avatar-profile-vector-illustrations-website-social-networks-user-profile-icon_495897-226.jpg',
-      gender: 'female',
-    },
-    {
-      id: 4,
-      name: 'Roald Dahl',
-      avatar:
-        'https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg',
-      gender: 'female',
-    },
-    {
-      id: 5,
-      name: 'Ralph Waldo',
-      avatar: '',
-      gender: 'female',
-    },
-  ];
-
+  const { data: authors } = useQuery({
+    queryKey: ['getUsers'],
+    queryFn: getUsers,
+  });
+  console.log('leaderboard', authors);
   const getInitials = (fullname: string) => {
     // Split the full name into an array of words (by space)
     const nameParts = fullname.split(' ');
@@ -57,7 +27,7 @@ const UserRating = () => {
           Leaderboard
         </h2>
         <div className='mt-2 space-y-6 md:space-y-4 lg:space-y-6'>
-          {authors.map((author, i) => {
+          {authors?.map((author: any, i: number) => {
             //const color = colors[Math.floor(Math.random() * colors.length)];
 
             return (
