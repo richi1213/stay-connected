@@ -26,7 +26,7 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
 
         const numberOfAnswers = question.answers?.length || 0;
         return (
-          <Link to='' key={question.id}>
+          <Link to={`/question/${question.id}`} key={question.id}>
             <Card>
               <CardHeader>
                 <CardTitle className='text-lg'>{question.title}</CardTitle>
