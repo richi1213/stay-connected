@@ -114,7 +114,8 @@ Meet our amazing team of React developers:
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/stayconnected.git
+   git clone https://github.com/richi1213/stay-connected.git
+
    ```
 
 2. **Install dependencies**
