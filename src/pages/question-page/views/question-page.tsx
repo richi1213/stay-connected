@@ -51,6 +51,9 @@ import { useParams } from 'react-router-dom';
 
 const QuestionPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  if (!id) {
+    return <div>Error: No ID found</div>;
+  }
 
   // Fetch question details
   const {
@@ -71,10 +74,6 @@ const QuestionPage: React.FC = () => {
   //   queryKey: ['answers', id],
   //   queryFn: () => fetchAnswers(id!),
   // });
-
-  if (isQuestionLoading) {
-    return <Loading />;
-  }
 
   if (isQuestionLoading) {
     return <Loading />;

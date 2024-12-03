@@ -1,7 +1,7 @@
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import {
-  Author,
+  // Author,
   QuestionProps,
 } from '@/pages/question-page/components/question/question.types';
 import { Dot, Star } from 'lucide-react';

@@ -3,7 +3,7 @@ import { httpClient } from '@/components/api';
 // Fetch single question by ID
 export const fetchQuestion = async (id: string) => {
   try {
-    const response = await httpClient.get(`/question/${id}`);
+    const response = await httpClient.get(`/questions/${id}`);
     return response.data;
   } catch (error) {
     console.error(`Error fetching question with ID ${id}:`, error);
