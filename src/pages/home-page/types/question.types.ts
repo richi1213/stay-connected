@@ -7,6 +7,7 @@ export type tagsType = {
 export type Tags = {
   id: number;
   name: string;
+  slug: string;
 };
 
 export type authorType = {

@@ -3,12 +3,15 @@ import { Badge } from '@/components/ui/badge';
 import { getQuestions } from '@/components/api/questions/index.ts';
 import { useQuery } from '@tanstack/react-query';
 import { questionType } from '../types/question.types.ts';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 const QuestionsList = () => {
+  const [searchParams] = useSearchParams();
+  const paramKey = searchParams.get('key') as string;
+  const paramTags = searchParams.get('tags') as string;
   const { data: questions } = useQuery({
     queryKey: ['getQuestionsList'],
-    queryFn: getQuestions,
+    queryFn: () => getQuestions(paramKey, paramTags),
   });
 
   const titleSubString = (str: string, count: number) => {
