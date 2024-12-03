@@ -2,7 +2,7 @@ import Loading from '@/components/ui/loading';
 import { fetchQuestion } from '@/pages/question-page/api';
 // import Answers from '@/pages/question-page/components/answers/answers';
 import Question from '@/pages/question-page/components/question/question';
-// import WriteAnswer from '@/pages/question-page/components/write-answer/write-answer';
+import WriteAnswer from '@/pages/question-page/components/write-answer/write-answer';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
@@ -93,8 +93,8 @@ const QuestionPage: React.FC = () => {
     <div className='mb-8 mt-2 flex flex-col items-center'>
       <div className='w-5/6 space-y-10 text-foreground md:w-2/3'>
         <Question question={questionData} />
-        {/* <Answers answers={answers} authorId={authorId} />
-        <WriteAnswer /> */}
+        {/* <Answers answers={answers} authorId={authorId} /> */}
+        <WriteAnswer />
       </div>
     </div>
   );
