@@ -53,17 +53,17 @@ const MainRoutes = () => {
           <Route
             path='createQuestion'
             element={
-              <LogoutGuard>
-                <CreateQuestionPage />
-              </LogoutGuard>
+              // <LogoutGuard>
+              <CreateQuestionPage />
+              // </LogoutGuard>
             }
           />
           <Route
-            path='question'
+            path='question/:id'
             element={
-              <LogoutGuard>
+              <Suspense fallback={<Loading />}>
                 <QuestionPage />
-              </LogoutGuard>
+              </Suspense>
             }
           />
           <Route path='*' element={<NotFound />} />
