@@ -33,3 +33,22 @@ export const fetchQuestion = async (id: string) => {
 //   }
 //   return response.json();
 // };
+
+export const postAnswer = async ({
+  questionId,
+  answerData,
+}: {
+  questionId: string;
+  answerData: { text: string };
+}) => {
+  try {
+    const response = await httpClient.post(
+      `/questions/${questionId}/answers`,
+      answerData,
+    );
+    return response.data;
+  } catch (error) {
+    console.error(`Error posting answer for question ID ${questionId}:`, error);
+    throw error;
+  }
+};

@@ -15,19 +15,44 @@ import {
   AnswerFormSchema,
   AnswerFormData,
 } from '@/pages/question-page/components/write-answer/answer-schema';
+import { useMutation } from '@tanstack/react-query';
+import { postAnswer } from '@/pages/question-page/api';
+import { useParams } from 'react-router-dom';
 
 const WriteAnswer: React.FC = () => {
   const { toast } = useToast();
+  const { id } = useParams<{ id: string }>();
 
   const form = useForm<AnswerFormData>({
     resolver: zodResolver(AnswerFormSchema),
+    defaultValues: {
+      yourAnswer: '',
+    },
   });
 
-  function onSubmit() {
-    toast({
-      variant: 'default',
-      description: 'You have successfully posted your answer!',
-    });
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (answerData: { text: string }) =>
+      postAnswer({
+        questionId: id ?? '0', // Use id from URL or fallback to '0'
+        answerData: { text: answerData.text },
+      }),
+    onSuccess: () => {
+      toast({
+        variant: 'default',
+        description: 'You have successfully posted your answer!',
+      });
+      form.reset();
+    },
+    onError: () => {
+      toast({
+        variant: 'destructive',
+        description: 'Failed to post your answer. Please try again.',
+      });
+    },
+  });
+
+  function onSubmit(data: AnswerFormData) {
+    mutate({ text: data.yourAnswer });
   }
 
   return (
@@ -46,7 +71,9 @@ const WriteAnswer: React.FC = () => {
             </FormItem>
           )}
         />
-        <Button type='submit'>Post</Button>
+        <Button type='submit' disabled={isLoading}>
+          {isLoading ? 'Posting...' : 'Post'}
+        </Button>
       </form>
     </Form>
   );
