@@ -7,7 +7,6 @@ interface UserInfoProps {
   user: User;
 }
 const UserTabs: React.FC<PropsWithChildren<UserInfoProps>> = ({ user }) => {
-
   return (
     <div className='w-full'>
       <Tabs defaultValue='questions' className='w-full'>
@@ -21,14 +20,28 @@ const UserTabs: React.FC<PropsWithChildren<UserInfoProps>> = ({ user }) => {
         </TabsList>
         <TabsContent value='questions'>
           <div className='my-8'>
-            {user.questions.length > 0 ? <UserQuestionCards questions={user.questions} /> : <EmptyState title="You haven't asked any questions yet" buttonTitle='Ask a Question' to="/createQuestion"/>}
-            
+            {user.questions.length > 0 ? (
+              <UserQuestionCards questions={user.questions} />
+            ) : (
+              <EmptyState
+                title="You haven't asked any questions yet"
+                buttonTitle='Ask a Question'
+                to='/createQuestion'
+              />
+            )}
           </div>
         </TabsContent>
         <TabsContent value='answers'>
-        <div className='my-8'>
-            {user.answers.length > 0 ? <UserQuestionCards questions={user.questions} /> : <EmptyState title="You haven't answered any questions yet" buttonTitle='Check recent questions' to="/"/>}
-            
+          <div className='my-8'>
+            {user.answers.length > 0 ? (
+              <UserQuestionCards questions={user.questions} />
+            ) : (
+              <EmptyState
+                title="You haven't answered any questions yet"
+                buttonTitle='Check recent questions'
+                to='/'
+              />
+            )}
           </div>
         </TabsContent>
       </Tabs>
