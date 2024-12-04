@@ -15,13 +15,14 @@ import {
   AnswerFormSchema,
   AnswerFormData,
 } from '@/pages/question-page/components/write-answer/answer-schema';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postAnswer } from '@/pages/question-page/api';
 import { useParams } from 'react-router-dom';
 
 const WriteAnswer: React.FC = () => {
   const { toast } = useToast();
   const { id } = useParams<{ id: string }>();
+  const queryClient = useQueryClient();
 
   const form = useForm<AnswerFormData>({
     resolver: zodResolver(AnswerFormSchema),
@@ -33,7 +34,7 @@ const WriteAnswer: React.FC = () => {
   const { mutate, isLoading } = useMutation({
     mutationFn: (answerData: { text: string }) =>
       postAnswer({
-        questionId: id ?? '0', // Use id from URL or fallback to '0'
+        questionId: id ?? '0',
         answerData: { text: answerData.text },
       }),
     onSuccess: () => {
@@ -41,6 +42,7 @@ const WriteAnswer: React.FC = () => {
         variant: 'default',
         description: 'You have successfully posted your answer!',
       });
+      queryClient.invalidateQueries(['answers', id]);
       form.reset();
     },
     onError: () => {
