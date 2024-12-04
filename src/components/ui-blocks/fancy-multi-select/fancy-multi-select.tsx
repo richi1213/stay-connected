@@ -86,7 +86,7 @@ export function FancyMultiSelect({ onTagsChange }: FancyMultiSelectProps) {
             setSelected((prev) => {
               const newSelected = [...prev];
               newSelected.pop();
-              onTagsChange(newSelected); 
+              onTagsChange(newSelected);
               return newSelected;
             });
           }
