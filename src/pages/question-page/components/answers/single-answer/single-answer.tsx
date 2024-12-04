@@ -36,18 +36,13 @@ const SingleAnswer: React.FC<Answer> = ({
 
   const queryClient = useQueryClient();
 
-  const [isLiked, setIsLiked] = useState(false);
+  // Directly calculate initial like status based on likes_count
+  const [isLiked, setIsLiked] = useState(likes_count > 0);
   const [localIsCorrect, setLocalIsCorrect] = useState(is_correct);
 
   useEffect(() => {
     setLocalIsCorrect(is_correct);
   }, [is_correct]);
-
-  useEffect(() => {
-    // Check if the current user has already liked this answer
-    const isAlreadyLiked = likes_count > 0; // Assuming likes_count > 0 means it's liked
-    setIsLiked(isAlreadyLiked);
-  }, [likes_count]);
 
   const { mutate: toggleLike } = useMutation({
     mutationFn: () => toggleAnswerLike(answerId),
@@ -71,19 +66,15 @@ const SingleAnswer: React.FC<Answer> = ({
         );
       }
 
-      // Don't toggle the state here, wait for the mutation to complete
       return { previousAnswers };
     },
     onSuccess: () => {
-      setIsLiked((prev) => !prev); // Toggle isLiked state after mutation success
+      setIsLiked((prev) => !prev);
     },
     onError: (_, __, context) => {
       if (context?.previousAnswers) {
         queryClient.setQueryData(['answers', id], context.previousAnswers);
       }
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(['answers', id]);
     },
   });
 
@@ -106,7 +97,6 @@ const SingleAnswer: React.FC<Answer> = ({
       }
 
       setLocalIsCorrect(true);
-
       return { previousAnswers };
     },
     onError: (_, __, context) => {
@@ -182,7 +172,7 @@ const SingleAnswer: React.FC<Answer> = ({
             data-state={isLiked ? 'on' : 'off'}
           >
             <ThumbsUp className='mr-1 h-4 w-4 transition-all hover:text-primary' />
-            <span className='text-sm'>{likes_count + (isLiked ? 1 : 0)}</span>
+            <span className='text-sm'>{likes_count}</span>
           </Toggle>
         </div>
       </CardContent>
