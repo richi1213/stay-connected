@@ -7,8 +7,8 @@ export const LogoutGuard: React.FC<PropsWithChildren> = ({ children }) => {
 
   if (storedUser) {
     try {
-      const parsedUser = JSON.parse(storedUser); // Parse the stored string
-      token = parsedUser.access; // Access the token safely
+      const parsedUser = JSON.parse(storedUser);
+      token = parsedUser.access;
     } catch (error) {
       console.error('Failed to parse user from localStorage', error);
     }
