@@ -2,7 +2,7 @@ import { httpClient } from '@/components/api';
 import { Answers } from '@/pages/question-page/api/index.types';
 
 // Fetch single question by ID
-export const fetchQuestion = async (id: string) => {
+export const fetchQuestion = async (id: number) => {
   try {
     const response = await httpClient.get(`/questions/${id}`);
     return response.data;
@@ -13,7 +13,7 @@ export const fetchQuestion = async (id: string) => {
 };
 
 // Fetch answers for a question
-export const fetchAnswers = async (questionId: string): Promise<Answers> => {
+export const fetchAnswers = async (questionId: number): Promise<Answers> => {
   try {
     const response = await httpClient.get<Answers>(
       `/questions/${questionId}/answers`,
@@ -44,6 +44,16 @@ export const toggleAnswerLike = async (answerId: number): Promise<void> => {
     return response.data;
   } catch (error) {
     console.error(`Error toggling like for answer ID ${answerId}:`, error);
+    throw error;
+  }
+};
+
+export const markAnswerAsCorrect = async (answerId: number): Promise<void> => {
+  try {
+    const response = await httpClient.patch(`/answers/${answerId}/correct`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error marking answer ID ${answerId} as correct:`, error);
     throw error;
   }
 };

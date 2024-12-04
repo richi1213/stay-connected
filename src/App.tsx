@@ -1,5 +1,6 @@
 import { useAtom, useAtomValue } from 'jotai';
 import MainRoutes from './routes/routes';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { meAtom, userAtom } from './store/auth';
 import { setAuthToken } from './components/api';
@@ -42,6 +43,7 @@ const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <MainRoutes />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };

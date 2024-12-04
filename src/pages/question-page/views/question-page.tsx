@@ -8,9 +8,7 @@ import { useParams } from 'react-router-dom';
 
 const QuestionPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  if (!id) {
-    return <div>Error: No ID found</div>;
-  }
+  const numericId = Number(id);
 
   const {
     data: questionData,
@@ -18,7 +16,7 @@ const QuestionPage: React.FC = () => {
     isError: isQuestionError,
   } = useQuery({
     queryKey: ['question', id],
-    queryFn: () => fetchQuestion(id),
+    queryFn: () => fetchQuestion(numericId),
   });
 
   const {
@@ -27,7 +25,7 @@ const QuestionPage: React.FC = () => {
     isError: isAnswersError,
   } = useQuery({
     queryKey: ['answers', id],
-    queryFn: () => fetchAnswers(id),
+    queryFn: () => fetchAnswers(numericId),
   });
 
   if (isQuestionLoading || isAnswersLoading) {

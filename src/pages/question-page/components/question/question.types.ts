@@ -1,12 +1,12 @@
 export type Author = {
-  id: string;
+  id: number;
   fullname: string;
   email: string;
   rating: number;
 };
 
 type Question = {
-  id: string;
+  id: number;
   author_id: string;
   title: string;
   description: string;
