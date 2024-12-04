@@ -7,13 +7,13 @@ import UserTabs from '../components/user-tabs';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 
-const UserProfile = () => {
+const MyProfile = () => {
   const navigate = useNavigate();
   const me = useAtomValue(meAtom);
 
   return (
     <ScreenLg>
-      <div className='flex flex-col gap-8'>
+      <div className='flex w-full flex-col gap-8'>
         {me ? (
           <>
             <UserInfo user={me} />
@@ -25,10 +25,10 @@ const UserProfile = () => {
             <Button onClick={() => navigate('/login')}>Sign in</Button>
           </>
         )}
-        <p>{JSON.stringify(me)}</p>
+        {/* <p>{JSON.stringify(me)}</p> */}
       </div>
     </ScreenLg>
   );
 };
 
-export default UserProfile;
+export default MyProfile;
