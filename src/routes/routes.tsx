@@ -55,7 +55,6 @@ const MainRoutes = () => {
             element={
               <LogoutGuard>
                 <CreateQuestionPage />
-                //{' '}
               </LogoutGuard>
             }
           />
