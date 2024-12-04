@@ -1,5 +1,9 @@
 import Loading from '@/components/ui/loading';
-import { fetchAnswers, fetchQuestion } from '@/pages/question-page/api';
+import {
+  fetchAnswers,
+  fetchQuestion,
+  fetchUserProfile,
+} from '@/pages/question-page/api';
 import Answers from '@/pages/question-page/components/answers/answers';
 import Question from '@/pages/question-page/components/question/question';
 import WriteAnswer from '@/pages/question-page/components/write-answer/write-answer';
@@ -9,6 +13,15 @@ import { useParams } from 'react-router-dom';
 const QuestionPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const numericId = Number(id);
+
+  const {
+    data: authorData,
+    isLoading: isAuthorDataLoading,
+    isError: isAuthorDataError,
+  } = useQuery({
+    queryKey: ['author', id],
+    queryFn: () => fetchUserProfile(numericId),
+  });
 
   const {
     data: questionData,
@@ -28,18 +41,18 @@ const QuestionPage: React.FC = () => {
     queryFn: () => fetchAnswers(numericId),
   });
 
-  if (isQuestionLoading || isAnswersLoading) {
+  if (isQuestionLoading || isAnswersLoading || isAuthorDataLoading) {
     return <Loading />;
   }
 
-  if (isQuestionError || isAnswersError) {
+  if (isQuestionError || isAnswersError || isAuthorDataError) {
     return <div>Error fetching data</div>;
   }
 
   return (
     <div className='mb-8 mt-2 flex flex-col items-center'>
       <div className='w-5/6 space-y-10 text-foreground md:w-2/3'>
-        <Question question={questionData} />
+        <Question question={questionData} author={authorData} />
         <Answers answers={answersData} />
         <WriteAnswer />
       </div>

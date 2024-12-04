@@ -164,16 +164,18 @@ const SingleAnswer: React.FC<Answer> = ({
         <div className='leading-relaxed'>{text}</div>
 
         <div className='flex items-center gap-2 pt-2'>
-          <Toggle
-            variant='outline'
-            size='sm'
-            onClick={() => toggleLike()}
-            className='data-[state=on]:bg-primary data-[state=on]:text-primary-foreground'
-            data-state={isLiked ? 'on' : 'off'}
-          >
-            <ThumbsUp className='mr-1 h-4 w-4 transition-all hover:text-primary' />
-            <span className='text-sm'>{likes_count}</span>
-          </Toggle>
+          {isAuthorLoggedIn && (
+            <Toggle
+              variant='outline'
+              size='sm'
+              onClick={() => toggleLike()}
+              className='data-[state=on]:bg-primary data-[state=on]:text-primary-foreground'
+              data-state={isLiked ? 'on' : 'off'}
+            >
+              <ThumbsUp className='mr-1 h-4 w-4 transition-all hover:text-primary' />
+              <span className='text-sm'>{likes_count}</span>
+            </Toggle>
+          )}
         </div>
       </CardContent>
     </Card>
