@@ -11,6 +11,4 @@ export type Answer = {
   };
 };
 
-export type AnswersProps = {
-  answers: Answer[];
-};
+export type Answers = Answer[];

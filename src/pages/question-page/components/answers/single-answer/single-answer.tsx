@@ -13,26 +13,23 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { SingleAnswerProps } from '@/pages/question-page/components/answers/single-answer/signle-answer.types';
+import { Answer } from '@/pages/question-page/components/answers/answers.types';
 
-const SingleAnswer: React.FC<SingleAnswerProps> = ({
-  username,
-  date,
-  content,
-  likes,
-  authorId,
-  isCorrect,
-  rating,
+const SingleAnswer: React.FC<Answer> = ({
+  // id,
+  text,
+  likes_count,
+  is_correct,
+  author,
 }) => {
   const { toast } = useToast();
 
-  // LOCAL STATE
-  const loggedUserId = '82wewq7dsaghsa';
-  const isAuthorLoggedIn = loggedUserId === authorId;
+  const loggedUserId = 13;
+  const isAuthorLoggedIn = loggedUserId === author.id;
 
   const [isLiked, setIsLiked] = useState(false);
-  const [currentLikes, setCurrentLikes] = useState(likes);
-  const [isAccepted, setIsAccepted] = useState(isCorrect);
+  const [currentLikes, setCurrentLikes] = useState(likes_count);
+  const [isAccepted, setIsAccepted] = useState(is_correct);
 
   const onAcceptAnswer = () => {
     setIsAccepted(true);
@@ -46,90 +43,65 @@ const SingleAnswer: React.FC<SingleAnswerProps> = ({
   };
 
   const handleLikeToggle = () => {
-    if (isLiked) {
-      setCurrentLikes((prevLikes) => prevLikes - 1);
-    } else {
-      setCurrentLikes((prevLikes) => prevLikes + 1);
-    }
+    setCurrentLikes((prevLikes) => (isLiked ? prevLikes - 1 : prevLikes + 1));
     setIsLiked((prev) => !prev);
   };
-
-  let acceptedBadge = null;
-  if (isAccepted) {
-    acceptedBadge = (
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Badge
-              variant='outline'
-              className='cursor-pointer border-green-300 bg-green-100 text-green-800'
-            >
-              <Check className='mr-1 h-4 w-4' /> Accepted
-            </Badge>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Accepted</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-    );
-  }
-
-  let acceptButton = null;
-  if (isAuthorLoggedIn && !isAccepted) {
-    acceptButton = (
-      <TooltipProvider delayDuration={100}>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant='ghost'
-              className='text-primary'
-              onClick={() => onAcceptAnswer()}
-            >
-              <Highlighter />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent className='bg-green-50 text-secondary-foreground'>
-            <p>Mark this answer as accepted</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-    );
-  }
 
   return (
     <Card className='w-full border-none bg-background text-foreground'>
       <CardContent className='space-y-2 p-4'>
         <div className='flex items-center justify-between'>
           <div className='flex items-center gap-1'>
-            <div className='flex cursor-pointer items-center gap-2'>
-              <Avatar>
-                <AvatarImage src='https://github.com/shadcn.png' />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <span className='font-medium'>{username}</span>
-            </div>
+            <Avatar>
+              <AvatarImage src='https://github.com/shadcn.png' />
+              <AvatarFallback>{author.fullname.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <span className='font-medium'>{author.fullname}</span>
             <span className='flex items-center gap-0.5 text-sm text-primary'>
               <Dot className='text-accent-foreground' />
               <Star className='size-4' />
-              {rating}
+              {author.rating}
             </span>
-            <span className='flex items-center text-sm'>
+            {/* <span className='flex items-center text-sm'>
               <Dot className='text-accent-foreground' /> {date}
-            </span>
+            </span> */}
           </div>
-          {acceptedBadge}
-          {acceptButton}
+          {isAccepted && (
+            <Badge
+              variant='outline'
+              className='cursor-pointer border-green-300 bg-green-100 text-green-800'
+            >
+              <Check className='mr-1 h-4 w-4' /> Accepted
+            </Badge>
+          )}
+          {isAuthorLoggedIn && !isAccepted && (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant='ghost'
+                    className='text-primary'
+                    onClick={onAcceptAnswer}
+                  >
+                    <Highlighter />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent className='bg-green-50 text-secondary-foreground'>
+                  <p>Mark this answer as accepted</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
         </div>
 
-        <div className='leading-relaxed'>{content}</div>
+        <div className='leading-relaxed'>{text}</div>
 
         <div className='flex items-center gap-2 pt-2'>
           <Toggle
             variant='outline'
             size='sm'
-            className='data-[state=on]:bg-primary data-[state=on]:text-primary-foreground'
             onClick={handleLikeToggle}
+            className='data-[state=on]:bg-primary data-[state=on]:text-primary-foreground'
           >
             <ThumbsUp className='mr-1 h-4 w-4 transition-all hover:text-primary' />
             <span className='text-sm'>{currentLikes}</span>
