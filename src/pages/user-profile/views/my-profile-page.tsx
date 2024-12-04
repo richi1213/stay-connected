@@ -13,7 +13,7 @@ const MyProfile = () => {
 
   return (
     <ScreenLg>
-      <div className='flex flex-col gap-8'>
+      <div className='w-full flex flex-col gap-8'>
         {me ? (
           <>
             <UserInfo user={me} />
@@ -25,7 +25,7 @@ const MyProfile = () => {
             <Button onClick={() => navigate('/login')}>Sign in</Button>
           </>
         )}
-        <p>{JSON.stringify(me)}</p>
+        {/* <p>{JSON.stringify(me)}</p> */}
       </div>
     </ScreenLg>
   );
