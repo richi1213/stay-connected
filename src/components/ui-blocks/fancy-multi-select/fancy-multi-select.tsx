@@ -86,7 +86,7 @@ export function FancyMultiSelect({ onTagsChange }: FancyMultiSelectProps) {
             setSelected((prev) => {
               const newSelected = [...prev];
               newSelected.pop();
-              onTagsChange(newSelected); // Send updated tags to the parent
+              onTagsChange(newSelected); 
               return newSelected;
             });
           }
@@ -159,7 +159,7 @@ export function FancyMultiSelect({ onTagsChange }: FancyMultiSelectProps) {
                       onSelect={() => {
                         const newSelected = [...selected, framework];
                         setSelected(newSelected);
-                        onTagsChange(newSelected); // Send updated tags to the parent
+                        onTagsChange(newSelected);
                       }}
                       className={'cursor-pointer'}
                     >

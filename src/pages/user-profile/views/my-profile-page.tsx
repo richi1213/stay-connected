@@ -7,7 +7,7 @@ import UserTabs from '../components/user-tabs';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 
-const UserProfile = () => {
+const MyProfile = () => {
   const navigate = useNavigate();
   const me = useAtomValue(meAtom);
 
@@ -31,4 +31,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default MyProfile;
