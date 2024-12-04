@@ -34,6 +34,8 @@ const App: React.FC = () => {
       } catch (error) {
         console.error('Error fetching user info:', error);
         setMe(null);
+        setAuthToken(null);
+        localStorage.removeItem('user');
       }
     };
 
