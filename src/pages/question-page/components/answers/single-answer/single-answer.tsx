@@ -14,22 +14,65 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { Answer } from '@/pages/question-page/components/answers/answers.types';
+import { useAtomValue } from 'jotai';
+import { meAtom } from '@/store/auth';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toggleAnswerLike } from '@/pages/question-page/api';
 
 const SingleAnswer: React.FC<Answer> = ({
-  // id,
+  id,
   text,
   likes_count,
   is_correct,
   author,
 }) => {
   const { toast } = useToast();
+  const me = useAtomValue(meAtom);
+  const isAuthorLoggedIn = me?.id === author.id;
 
-  const loggedUserId = 13;
-  const isAuthorLoggedIn = loggedUserId === author.id;
+  const queryClient = useQueryClient();
+
+  // const { data: answerData, refetch } = useQuery({
+  //   queryKey: ['answer', id],
+  //   queryFn: () => getAnswer(id),
+  // });
 
   const [isLiked, setIsLiked] = useState(false);
-  const [currentLikes, setCurrentLikes] = useState(likes_count);
+
+  const { mutate: toggleLike } = useMutation({
+    mutationFn: () => toggleAnswerLike(id),
+    onSettled: () => {
+      queryClient.invalidateQueries(['answer', id]);
+    },
+    onMutate: async () => {
+      await queryClient.cancelQueries(['answer', id]);
+
+      const previousData = queryClient.getQueryData<Answer>(['answer', id]);
+
+      const updatedData = previousData
+        ? {
+            ...previousData,
+            likes_count: previousData.likes_count + (isLiked ? -1 : 1),
+          }
+        : { likes_count: 0, id, text, is_correct, author };
+
+      queryClient.setQueryData(['answer', id], updatedData);
+
+      setIsLiked((prev) => !prev);
+
+      return { previousData };
+    },
+    onError: (_, __, context) => {
+      // Rollback if there's an error
+      queryClient.setQueryData(['answer', id], context?.previousData);
+    },
+  });
+
   const [isAccepted, setIsAccepted] = useState(is_correct);
+
+  const handleLikeToggle = () => {
+    toggleLike();
+  };
 
   const onAcceptAnswer = () => {
     setIsAccepted(true);
@@ -40,11 +83,6 @@ const SingleAnswer: React.FC<Answer> = ({
         <ToastAction altText='Undo marking as accepted'>Undo</ToastAction>
       ),
     });
-  };
-
-  const handleLikeToggle = () => {
-    setCurrentLikes((prevLikes) => (isLiked ? prevLikes - 1 : prevLikes + 1));
-    setIsLiked((prev) => !prev);
   };
 
   return (
@@ -62,9 +100,6 @@ const SingleAnswer: React.FC<Answer> = ({
               <Star className='size-4' />
               {author.rating}
             </span>
-            {/* <span className='flex items-center text-sm'>
-              <Dot className='text-accent-foreground' /> {date}
-            </span> */}
           </div>
           {isAccepted && (
             <Badge
@@ -104,7 +139,7 @@ const SingleAnswer: React.FC<Answer> = ({
             className='data-[state=on]:bg-primary data-[state=on]:text-primary-foreground'
           >
             <ThumbsUp className='mr-1 h-4 w-4 transition-all hover:text-primary' />
-            <span className='text-sm'>{currentLikes}</span>
+            <span className='text-sm'>{likes_count + (isLiked ? 1 : 0)}</span>
           </Toggle>
         </div>
       </CardContent>

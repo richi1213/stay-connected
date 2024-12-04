@@ -36,6 +36,18 @@ export const fetchAnswers = async (questionId: string): Promise<Answers> => {
 //   return response.json();
 // };
 
+// Toggle like/unlike for an answer
+export const toggleAnswerLike = async (answerId: number): Promise<void> => {
+  try {
+    const response = await httpClient.patch(`/answers/${answerId}/like`);
+    console.log(`Successfully toggled like for answer ID ${answerId}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error toggling like for answer ID ${answerId}:`, error);
+    throw error;
+  }
+};
+
 export const postAnswer = async ({
   questionId,
   answerData,
