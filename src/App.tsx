@@ -1,16 +1,15 @@
-import { useAtom, useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import MainRoutes from './routes/routes';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { meAtom, userAtom } from './store/auth';
 import { setAuthToken } from './components/api';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { getUserInfo } from './components/api/user/getuserinfo';
 
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-  const [me, setMe] = useAtom(meAtom);
+  const setMe = useSetAtom(meAtom);
   const user = useAtomValue(userAtom);
 
   useEffect(() => {
@@ -23,24 +22,17 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getUserInfo();
-      setMe(res);
+      try {
+        const res = await getUserInfo();
+        setMe(res); // Assuming `res` is of the correct type for `setMe`
+      } catch (error) {
+        console.error('Error fetching user info:', error);
+        setMe(null); // Or handle error state accordingly
+      }
     };
 
     fetchData();
   }, [user]);
-
-  console.log(me);
-
-  useEffect(() => {
-    if (me !== undefined) {
-      setLoading(false);
-    }
-  }, [me]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <QueryClientProvider client={queryClient}>

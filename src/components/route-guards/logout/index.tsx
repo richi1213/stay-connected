@@ -1,12 +1,20 @@
-import { useAtomValue } from 'jotai';
 import { Navigate, Outlet } from 'react-router-dom';
 import React, { PropsWithChildren } from 'react';
-import { meAtom } from '@/store/auth';
 
 export const LogoutGuard: React.FC<PropsWithChildren> = ({ children }) => {
-  const me = useAtomValue(meAtom);
+  const storedUser = localStorage.getItem('user');
+  let token: string | null = null;
 
-  if (!me) {
+  if (storedUser) {
+    try {
+      const parsedUser = JSON.parse(storedUser); // Parse the stored string
+      token = parsedUser.access; // Access the token safely
+    } catch (error) {
+      console.error('Failed to parse user from localStorage', error);
+    }
+  }
+
+  if (!token) {
     return <Navigate to='/home' />;
   }
 
