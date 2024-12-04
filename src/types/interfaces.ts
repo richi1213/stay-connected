@@ -28,4 +28,5 @@ export interface User {
   email: string;
   rating: number;
   questions: Question[];
+  answers: Answer[];
 }
