@@ -1,4 +1,4 @@
-import { useAtomValue, useSetAtom } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import MainRoutes from './routes/routes';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { meAtom, userAtom } from './store/auth';
@@ -9,25 +9,30 @@ import { getUserInfo } from './components/api/user/getuserinfo';
 const queryClient = new QueryClient();
 
 const App: React.FC = () => {
-  const setMe = useSetAtom(meAtom);
+  const [me, setMe] = useAtom(meAtom);
   const user = useAtomValue(userAtom);
 
   useEffect(() => {
-    if (user?.access) {
-      setAuthToken(user.access);
-    } else {
-      setAuthToken(null);
+    const savedUser = localStorage.getItem('user');
+
+    if (savedUser) {
+      try {
+        const parsedUser = JSON.parse(savedUser);
+        setAuthToken(parsedUser.access);
+      } catch (error) {
+        setAuthToken(null);
+      }
     }
-  }, [user]);
+  }, [me]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await getUserInfo();
-        setMe(res); // Assuming `res` is of the correct type for `setMe`
+        setMe(res);
       } catch (error) {
         console.error('Error fetching user info:', error);
-        setMe(null); // Or handle error state accordingly
+        setMe(null);
       }
     };
 
