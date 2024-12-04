@@ -18,8 +18,9 @@ const QuestionsList = () => {
 
   return (
     <>
-      {questions ? <QuestionCards questions={questions}/>
-  : (
+      {questions ? (
+        <QuestionCards questions={questions} />
+      ) : (
         <div className='mt-8 flex w-full flex-col space-y-8 text-center font-semibold md:space-y-6 lg:space-y-8'>
           Data Not Found
         </div>
@@ -29,4 +30,3 @@ const QuestionsList = () => {
 };
 
 export default QuestionsList;
-

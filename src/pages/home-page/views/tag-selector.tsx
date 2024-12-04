@@ -29,33 +29,27 @@ const TagSelector = () => {
   };
 
   return (
-    <div className="flex gap-2">
+    <div className='flex gap-2'>
       {tags && (
-          <div className="flex gap-4">
-        <ToggleGroup
-          variant='outline'
-          type='multiple'
-          size='sm'
-        
-          onValueChange={handleTags}
-        >
-     
-          {tags.map((tag: Tags) => {
-            
-            return (
-              
-              <ToggleGroupItem
-                value={tag.slug}
-                key={tag.id}
-                className=' hover:bg-gray-100 data-[state=on]:bg-primary data-[state=on]:text-white'
-              >
-                {tag.name}
-              </ToggleGroupItem>
-            );
-         
-          })}
-   
-        </ToggleGroup>
+        <div className='flex gap-4'>
+          <ToggleGroup
+            variant='outline'
+            type='multiple'
+            size='sm'
+            onValueChange={handleTags}
+          >
+            {tags.map((tag: Tags) => {
+              return (
+                <ToggleGroupItem
+                  value={tag.slug}
+                  key={tag.id}
+                  className='hover:bg-gray-100 data-[state=on]:bg-primary data-[state=on]:text-white'
+                >
+                  {tag.name}
+                </ToggleGroupItem>
+              );
+            })}
+          </ToggleGroup>
         </div>
       )}
     </div>
@@ -63,4 +57,3 @@ const TagSelector = () => {
 };
 
 export default TagSelector;
-
