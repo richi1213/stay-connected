@@ -53,9 +53,10 @@ const MainRoutes = () => {
           <Route
             path='createQuestion'
             element={
-              // <LogoutGuard>
-              <CreateQuestionPage />
-              // </LogoutGuard>
+              <LogoutGuard>
+                <CreateQuestionPage />
+                //{' '}
+              </LogoutGuard>
             }
           />
           <Route
