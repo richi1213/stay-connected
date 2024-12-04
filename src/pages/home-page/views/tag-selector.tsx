@@ -7,7 +7,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 const TagSelector = () => {
   const [searchParams] = useSearchParams();
   const search = searchParams.get('search');
-
   const navigate = useNavigate();
 
   const { data: tags } = useQuery({
@@ -15,17 +14,14 @@ const TagSelector = () => {
     queryFn: getTags,
   });
 
-  const handleTags = (value: string[]) => {
-    const path = [...value].join('&tags=');
+  const handleTags = (selectedTags: string[]) => {
+    const tagsPath =
+      selectedTags.length > 0 ? `tags=${selectedTags.join(',')}` : '';
+    const queryString = [search ? `search=${search}` : '', tagsPath]
+      .filter(Boolean)
+      .join('&');
 
-    console.log('length', value.length);
-    const tagsPath = value.length > 0 ? `tags=${path}` : '';
-    const searchPath = search
-      ? `?search=${search}&${tagsPath}`
-      : value
-        ? `?${tagsPath}`
-        : '';
-    navigate(searchPath);
+    navigate(`/?${queryString}`);
   };
 
   return (
@@ -38,17 +34,15 @@ const TagSelector = () => {
           size='sm'
           onValueChange={handleTags}
         >
-          {tags.map((tag: Tags) => {
-            return (
-              <ToggleGroupItem
-                value={tag.slug}
-                key={tag.id}
-                className='hover:bg-primary hover:text-white data-[state=on]:bg-primary data-[state=on]:text-white'
-              >
-                {tag.name}
-              </ToggleGroupItem>
-            );
-          })}
+          {tags.map((tag: Tags) => (
+            <ToggleGroupItem
+              value={tag.slug}
+              key={tag.id}
+              className='hover:bg-primary hover:text-white data-[state=on]:bg-primary data-[state=on]:text-white'
+            >
+              {tag.name}
+            </ToggleGroupItem>
+          ))}
         </ToggleGroup>
       ) : (
         <div>not found</div>

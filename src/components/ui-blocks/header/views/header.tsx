@@ -5,25 +5,29 @@ import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import ScreenLgHeader from '@/components/layout/page-containers/screen-lg-header';
 import { ChangeEvent, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const Header: React.FC = () => {
-  const [searchKey, setSerachKey] = useState<string>('');
-
-  const location = useLocation();
+  const [searchKey, setSearchKey] = useState<string>('');
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const handleSearchText = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSerachKey(value);
+    setSearchKey(e.target.value);
   };
+
   const handleSearch = () => {
-    const searchPath =
-      location.search === ''
-        ? `?search=${searchKey}`
-        : `${location.search}&search=${searchKey}`;
-    navigate(searchPath);
+    const tags = searchParams.get('tags');
+    const queryString = [
+      searchKey.trim() ? `search=${encodeURIComponent(searchKey.trim())}` : '',
+      tags ? `tags=${tags}` : '',
+    ]
+      .filter(Boolean)
+      .join('&');
+
+    navigate(`/?${queryString}`);
   };
+
   return (
     <div className='border-border-soft border-b'>
       <ScreenLgHeader>
