@@ -13,7 +13,7 @@ const MyProfile = () => {
 
   return (
     <ScreenLg>
-      <div className='w-full flex flex-col gap-8'>
+      <div className='flex w-full flex-col gap-8'>
         {me ? (
           <>
             <UserInfo user={me} />
