@@ -3,15 +3,24 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useForm, Controller } from 'react-hook-form';
-import { RegistrationType } from '../types/registration.types';
+import {
+  RegistrationType,
+  AxiosErrorResponse,
+  errorMsgType,
+} from '@/types/types.ts';
 import { Link } from 'react-router-dom';
 import ScreenMd from '@/components/layout/page-containers/screen-md';
 import FormContainer from '@/components/layout/page-containers/form-container';
 import { useMutation } from '@tanstack/react-query';
 import { registerUser } from '@/components/api/user';
 import SuccessMsg from './success-msg.tsx';
+import { useState } from 'react';
 
 const RegistrationPage = () => {
+  const [errorMsg, setErrorMsg] = useState<errorMsgType>({
+    email: '',
+    password: '',
+  });
   const {
     control,
     handleSubmit,
@@ -28,11 +37,33 @@ const RegistrationPage = () => {
   const { mutate: register, isSuccess } = useMutation({
     mutationKey: ['register'],
     mutationFn: registerUser,
+    onError: (error: AxiosErrorResponse) => {
+      const test = Object.entries(error?.response.data);
+
+      if (test.length == 2) {
+        setErrorMsg({
+          email: String(test[0][1]),
+          password: String(test[1][1]),
+        });
+      }
+      if (test.length < 2) {
+        if (test[0][0] === 'email') {
+          setErrorMsg({
+            email: String(test[0][1]),
+            password: '',
+          });
+        }
+        if (test[0][0] === 'password') {
+          setErrorMsg({
+            email: '',
+            password: String(test[0][1]),
+          });
+        }
+      }
+    },
   });
 
   const onSubmit = (fieldValues: RegistrationType) => {
-    console.log('clicked');
-
     register(fieldValues);
   };
   return (
@@ -116,6 +147,14 @@ const RegistrationPage = () => {
                       {String(errors.email.message)}
                     </span>
                   )}
+                  {errorMsg.email && (
+                    <span
+                      role='alert'
+                      className='pt-2 text-sm text-destructive'
+                    >
+                      {String(errorMsg.email)}
+                    </span>
+                  )}
                 </div>
                 <div className='mb-2 md:m-0'>
                   <Label htmlFor='password'>Password</Label>
@@ -126,7 +165,7 @@ const RegistrationPage = () => {
                       required: true,
                       minLength: {
                         value: 6,
-                        message: 'min length is 6',
+                        message: 'min length is 8',
                       },
                     }}
                     render={({ field: { onChange, value } }) => {
@@ -147,6 +186,14 @@ const RegistrationPage = () => {
                       className='pt-2 text-sm text-destructive'
                     >
                       {String(errors.password.message)}
+                    </span>
+                  )}
+                  {errorMsg.password && (
+                    <span
+                      role='alert'
+                      className='pt-2 text-sm text-destructive'
+                    >
+                      {String(errorMsg.password)}
                     </span>
                   )}
                 </div>
