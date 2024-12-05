@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
 import { Question } from '../../../types/interfaces';
 import { PropsWithChildren } from 'react';
+import useFormattedDate from '../../../custom-hooks/use-formatted-date';
 
 interface QuestionCardProps {
   questions: Question[];
@@ -20,6 +21,8 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
   return (
     <div className='flex flex-col gap-6'>
       {questions.map((question) => {
+        const isoDate = question.created_at;
+        const formattedDate = useFormattedDate(isoDate);
         const navigate = useNavigate();
         const handleCardClick = (id: string) => {
           navigate(`/question/${id}`);
@@ -29,7 +32,9 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
           <Card onClick={() => handleCardClick(question.id)} key={question.id}>
             <CardHeader>
               <CardTitle className='text-lg'>{question.title}</CardTitle>
-              <CardDescription>{question.author.fullname}</CardDescription>
+              <CardDescription>
+                {question.author.fullname} • {formattedDate}
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <p className='text-md text-muted-foreground'>
