@@ -27,7 +27,7 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
       {questions.map((question) => {
         const numberOfAnswers = question.answers?.length || 0;
         return (
-          <Card onClick={() => handleCardClick(question.id)}>
+          <Card onClick={() => handleCardClick(question.id)} key={question.id}>
             <CardHeader>
               <CardTitle className='text-lg'>{question.title}</CardTitle>
               <CardDescription>{question.author.fullname} •</CardDescription>
