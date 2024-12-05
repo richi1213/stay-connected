@@ -8,8 +8,11 @@ import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const Header: React.FC = () => {
-  const [searchKey, setSearchKey] = useState<string>('');
   const [searchParams] = useSearchParams();
+  const initialValue = searchParams.get('search')
+    ? searchParams.get('search')?.trim()
+    : '';
+  const [searchKey, setSearchKey] = useState<string>(String(initialValue));
   const navigate = useNavigate();
 
   const handleSearchText = (e: ChangeEvent<HTMLInputElement>) => {
