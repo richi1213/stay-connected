@@ -17,7 +17,6 @@ interface QuestionCardProps {
 const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
   questions,
 }) => {
-  
   return (
     <div className='flex flex-col gap-6'>
       {questions.map((question) => {
@@ -25,15 +24,17 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
         const handleCardClick = (id: string) => {
           navigate(`/question/${id}`);
         };
-        const formattedDate = format(new Date(question.created_at), 'dd MMM yyyy');
+        const formattedDate = format(
+          new Date(question.created_at),
+          'dd MMM yyyy',
+        );
         const numberOfAnswers = question.answers?.length || 0;
         return (
           <Card onClick={() => handleCardClick(question.id)} key={question.id}>
             <CardHeader>
               <CardTitle className='text-lg'>{question.title}</CardTitle>
               <CardDescription>
-                {question.author.fullname} •{' '}
-                {formattedDate}
+                {question.author.fullname} • {formattedDate}
                 {/* {question.created_at.substring(0, 10)} */}
               </CardDescription>
             </CardHeader>
