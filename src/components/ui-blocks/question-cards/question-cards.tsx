@@ -27,8 +27,7 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
               <CardHeader>
                 <CardTitle className='text-lg'>{question.title}</CardTitle>
                 <CardDescription>
-                  {question.author.fullname} •
-                 {question.created_at}
+                  {question.author.fullname} •{question.created_at}
                 </CardDescription>
               </CardHeader>
               <CardContent>
