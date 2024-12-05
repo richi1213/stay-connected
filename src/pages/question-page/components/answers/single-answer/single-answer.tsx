@@ -137,7 +137,8 @@ const SingleAnswer: React.FC<Answer> = ({
               variant='outline'
               className='border-green-300 bg-green-100 text-green-800'
             >
-              <Check className='mr-1 h-4 w-4' /> Accepted
+              <Check className='mr-0 size-3.5 sm:mr-1 sm:size-4' />{' '}
+              <span className='hidden sm:block'>Accepted</span>
             </Badge>
           ) : (
             isAuthorLoggedIn && (
