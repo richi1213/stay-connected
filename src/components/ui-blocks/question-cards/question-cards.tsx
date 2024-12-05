@@ -18,10 +18,11 @@ interface QuestionCardProps {
 const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
   questions,
 }) => {
+  const navigate = useNavigate();
   return (
     <div className='flex flex-col gap-6'>
       {questions.map((question) => {
-        const navigate = useNavigate();
+        
         const handleCardClick = (id: string) => {
           navigate(`/question/${id}`);
         };
