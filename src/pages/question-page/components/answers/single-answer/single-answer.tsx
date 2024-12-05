@@ -164,7 +164,7 @@ const SingleAnswer: React.FC<Answer> = ({
         <div className='leading-relaxed'>{text}</div>
 
         <div className='flex items-center gap-2 pt-2'>
-          {isAuthorLoggedIn && (
+          {me && (
             <Toggle
               variant='outline'
               size='sm'
