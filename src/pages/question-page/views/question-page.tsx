@@ -9,10 +9,13 @@ import Question from '@/pages/question-page/components/question/question';
 import WriteAnswer from '@/pages/question-page/components/write-answer/write-answer';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
+import { useAtomValue } from 'jotai';
+import { meAtom } from '@/store/auth';
 
 const QuestionPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const numericId = Number(id);
+  const me = useAtomValue(meAtom);
 
   const {
     data: questionData,
@@ -55,7 +58,7 @@ const QuestionPage: React.FC = () => {
       <div className='w-5/6 space-y-10 text-foreground md:w-2/3'>
         <Question question={questionData} author={authorData} />
         <Answers answers={answersData} />
-        <WriteAnswer />
+        {me && <WriteAnswer />}
       </div>
     </div>
   );
