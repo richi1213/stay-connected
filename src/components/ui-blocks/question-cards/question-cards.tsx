@@ -20,7 +20,6 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
   return (
     <div className='flex flex-col gap-6'>
       {questions.map((question) => {
-     
         const navigate = useNavigate();
         const handleCardClick = (id: string) => {
           navigate(`/question/${id}`);
@@ -31,7 +30,8 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
             <CardHeader>
               <CardTitle className='text-lg'>{question.title}</CardTitle>
               <CardDescription>
-                {question.author.fullname} • {question.created_at.substring(0, 10)}
+                {question.author.fullname} •{' '}
+                {question.created_at.substring(0, 10)}
               </CardDescription>
             </CardHeader>
             <CardContent>
