@@ -7,3 +7,4 @@ type User = {
 //eslint-disable-next-line
 export const userAtom = atomWithStorage<User>('user', null);
 export const meAtom = atom<any>(null);
+export const regAtom = atom<any>(null);
