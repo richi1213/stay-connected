@@ -10,7 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
 import { Question } from '../../../types/interfaces';
 import { PropsWithChildren } from 'react';
-
+import { format } from 'date-fns';
 interface QuestionCardProps {
   questions: Question[];
 }
@@ -24,14 +24,18 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
         const handleCardClick = (id: string) => {
           navigate(`/question/${id}`);
         };
+        const formattedDate = format(
+          new Date(question.created_at),
+          'dd MMM yyyy',
+        );
         const numberOfAnswers = question.answers?.length || 0;
         return (
           <Card onClick={() => handleCardClick(question.id)} key={question.id}>
             <CardHeader>
               <CardTitle className='text-lg'>{question.title}</CardTitle>
               <CardDescription>
-                {question.author.fullname} •{' '}
-                {question.created_at.substring(0, 10)}
+                {question.author.fullname} • {formattedDate}
+                {/* {question.created_at.substring(0, 10)} */}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -39,7 +43,7 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
                 {question.description}
               </p>
             </CardContent>
-            <CardFooter className='flex justify-between'>
+            <CardFooter className='flex flex-col items-start gap-4 sm:flex-row sm:justify-between'>
               <div className='flex gap-2'>
                 {question.tag_names.map((tag) => {
                   return (

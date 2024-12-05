@@ -3,6 +3,7 @@ import UserQuestionCards from '../../../components/ui-blocks/question-cards/ques
 import { User } from '../../../types/interfaces';
 import { PropsWithChildren } from 'react';
 import EmptyState from '@/components/ui-blocks/empty-state/empty-state';
+import AnswerCards from '@/components/ui-blocks/answer-cards/answer-cards';
 interface UserInfoProps {
   user: User;
 }
@@ -34,7 +35,7 @@ const UserTabs: React.FC<PropsWithChildren<UserInfoProps>> = ({ user }) => {
         <TabsContent value='answers'>
           <div className='my-8'>
             {user.answers.length > 0 ? (
-              <UserQuestionCards questions={user.questions} />
+              <AnswerCards answers={user.answers} />
             ) : (
               <EmptyState
                 title="You haven't answered any questions yet"
