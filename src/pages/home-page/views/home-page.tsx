@@ -15,7 +15,9 @@ const HomePage = () => {
           <div className='lg:col-span-2'>
             <QuestionsList />
           </div>
-          <UserRating />
+          <div className='h-auto'>
+            <UserRating />
+          </div>
         </div>
       </ScreenLg>
     </>
