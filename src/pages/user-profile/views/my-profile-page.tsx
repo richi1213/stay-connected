@@ -9,7 +9,7 @@ import { User } from '@/types/interfaces';
 
 const MyProfile = () => {
   const navigate = useNavigate();
-  const [profile, setProfile] = useState<User | null>(null)
+  const [profile, setProfile] = useState<User | null>(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -18,7 +18,6 @@ const MyProfile = () => {
       } catch (error) {
         console.error('Error fetching user info:', error);
         setProfile(null);
-       
       }
     };
 

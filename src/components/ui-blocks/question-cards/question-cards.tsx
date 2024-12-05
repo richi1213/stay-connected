@@ -22,7 +22,6 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
   return (
     <div className='flex flex-col gap-6'>
       {questions.map((question) => {
-        
         const handleCardClick = (id: string) => {
           navigate(`/question/${id}`);
         };
