@@ -21,6 +21,7 @@ const RegistrationPage = () => {
     email: '',
     password: '',
   });
+
   const {
     control,
     handleSubmit,
@@ -33,6 +34,7 @@ const RegistrationPage = () => {
       password: '',
       confirm_password: '',
     },
+    mode: 'onSubmit',
   });
   const { mutate: register, isSuccess } = useMutation({
     mutationKey: ['register'],
@@ -66,6 +68,7 @@ const RegistrationPage = () => {
   const onSubmit = (fieldValues: RegistrationType) => {
     register(fieldValues);
   };
+
   return (
     <>
       <ScreenMd>
@@ -86,16 +89,17 @@ const RegistrationPage = () => {
                     name='fullname'
                     control={control}
                     rules={{
-                      required: true,
+                      required: 'The field is empty.',
                       minLength: {
-                        value: 10,
-                        message: 'min length is 10',
+                        value: 1,
+                        message: 'The field is empty.',
                       },
                     }}
                     render={({ field: { onChange, value } }) => {
                       return (
                         <Input
                           onChange={onChange}
+                          minLength={1}
                           value={value}
                           className='mb-2 mt-2'
                           placeholder='Full Name'
@@ -118,14 +122,14 @@ const RegistrationPage = () => {
                     name='email'
                     control={control}
                     rules={{
-                      required: true,
+                      required: 'The field is empty.',
                       pattern: {
                         value: /\S+@\S+\.\S+/,
                         message: 'Entered value does not match email format',
                       },
                       minLength: {
-                        value: 10,
-                        message: 'min length is 10',
+                        value: 1,
+                        message: 'The field is empty.',
                       },
                     }}
                     render={({ field: { onChange, value } }) => {
@@ -162,9 +166,9 @@ const RegistrationPage = () => {
                     name='password'
                     control={control}
                     rules={{
-                      required: true,
+                      required: 'The field is empty.',
                       minLength: {
-                        value: 6,
+                        value: 8,
                         message: 'min length is 8',
                       },
                     }}
@@ -203,7 +207,7 @@ const RegistrationPage = () => {
                     name='confirm_password'
                     control={control}
                     rules={{
-                      required: true,
+                      required: 'The field is empty.',
                       validate: (value) => {
                         if (watch('password') != value) {
                           return 'Your passwords do not match.';

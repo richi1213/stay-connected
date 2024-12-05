@@ -63,14 +63,10 @@ const LoginPage = () => {
                   name='email'
                   control={control}
                   rules={{
-                    required: true,
+                    required: 'The field is empty.',
                     pattern: {
                       value: /\S+@\S+\.\S+/,
                       message: 'Entered value does not match email format',
-                    },
-                    minLength: {
-                      value: 10,
-                      message: 'min length is 10',
                     },
                   }}
                   render={({ field: { onChange, value } }) => {
@@ -96,10 +92,10 @@ const LoginPage = () => {
                   name='password'
                   control={control}
                   rules={{
-                    required: true,
+                    required: 'The field is empty.',
                     minLength: {
-                      value: 6,
-                      message: 'min length is 6',
+                      value: 8,
+                      message: 'min length is 8',
                     },
                   }}
                   render={({ field: { onChange, value } }) => {

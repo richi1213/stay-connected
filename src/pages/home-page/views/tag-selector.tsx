@@ -1,7 +1,7 @@
 import { getTags } from '@/components/api/tags/index.ts';
 import { useQuery } from '@tanstack/react-query';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { Tags } from '../types/question.types.ts';
+import { Tags } from '@/types/types.ts';
 import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
