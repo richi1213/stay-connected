@@ -27,11 +27,12 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
               <CardHeader>
                 <CardTitle className='text-lg'>{question.title}</CardTitle>
                 <CardDescription>
-                  {question.author.fullname} • {new Intl.DateTimeFormat("en-GB", {
-              day: "2-digit",
-              month: "short",
-              year: "numeric",
-            }).format(new Date(question.created_at))}
+                  {question.author.fullname} •{' '}
+                  {new Intl.DateTimeFormat('en-GB', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric',
+                  }).format(new Date(question.created_at))}
                 </CardDescription>
               </CardHeader>
               <CardContent>
