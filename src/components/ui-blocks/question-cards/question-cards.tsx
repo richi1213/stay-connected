@@ -27,7 +27,7 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
               <CardHeader>
                 <CardTitle className='text-lg'>{question.title}</CardTitle>
                 <CardDescription>
-                  {question.author.fullname} • {question.created_at}
+                  {question.author.fullname} • 
                 </CardDescription>
                 {question.answers.some((answer) => answer.isCorrect) && (
                   <div className='text-sm text-green-500'>Correct</div>
