@@ -29,9 +29,7 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
           <Card onClick={() => handleCardClick(question.id)} key={question.id}>
             <CardHeader>
               <CardTitle className='text-lg'>{question.title}</CardTitle>
-              <CardDescription>
-                {question.author.fullname}
-              </CardDescription>
+              <CardDescription>{question.author.fullname}</CardDescription>
             </CardHeader>
             <CardContent>
               <p className='text-md text-muted-foreground'>
