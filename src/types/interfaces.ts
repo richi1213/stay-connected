@@ -13,7 +13,7 @@ export interface Question {
   description: string;
   tag_names: string[];
   created_at: string;
-  answers: Answer[];
+  answers?: Answer[];
 }
 export interface Author {
   id: string;
