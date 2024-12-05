@@ -15,21 +15,22 @@ const QuestionPage: React.FC = () => {
   const numericId = Number(id);
 
   const {
-    data: authorData,
-    isLoading: isAuthorDataLoading,
-    isError: isAuthorDataError,
-  } = useQuery({
-    queryKey: ['author', id],
-    queryFn: () => fetchUserProfile(numericId),
-  });
-
-  const {
     data: questionData,
     isLoading: isQuestionLoading,
     isError: isQuestionError,
   } = useQuery({
     queryKey: ['question', id],
     queryFn: () => fetchQuestion(numericId),
+  });
+
+  const {
+    data: authorData,
+    isLoading: isAuthorDataLoading,
+    isError: isAuthorDataError,
+  } = useQuery({
+    queryKey: ['author', questionData?.author_id],
+    queryFn: () => fetchUserProfile(questionData!.author_id),
+    enabled: !!questionData,
   });
 
   const {
