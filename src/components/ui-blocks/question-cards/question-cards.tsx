@@ -39,7 +39,7 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
                 {question.description}
               </p>
             </CardContent>
-            <CardFooter className='flex justify-between'>
+            <CardFooter className='flex flex-col gap-4 items-start sm:flex-row sm:justify-between'>
               <div className='flex gap-2'>
                 {question.tag_names.map((tag) => {
                   return (
