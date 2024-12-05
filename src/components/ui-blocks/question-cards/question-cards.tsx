@@ -30,7 +30,7 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
           <Card onClick={() => handleCardClick(question.id)} key={question.id}>
             <CardHeader>
               <CardTitle className='text-lg'>{question.title}</CardTitle>
-              <CardDescription>{question.author.fullname} •</CardDescription>
+              <CardDescription>{question.author.fullname} • {question.created_at.substring(0, 10)}</CardDescription>
               {question.answers.some((answer) => answer.isCorrect) && (
                 <div className='text-sm text-green-500'>Correct</div>
               )}
