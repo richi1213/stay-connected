@@ -16,7 +16,6 @@ const MyProfile = () => {
         const res = await getUserInfo();
         setProfile(res);
       } catch (error) {
-        console.error('Error fetching user info:', error);
         setProfile(null);
       }
     };

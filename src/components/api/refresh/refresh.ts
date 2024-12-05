@@ -7,8 +7,6 @@ export type RefreshPayload = {
 };
 
 export const refresh = ({ payload }: RefreshPayload) => {
-  console.log('This is Payload: ', payload);
-
   return httpClient
     .post('/api/token/refresh/', payload)
     .then((res) => res.data);
