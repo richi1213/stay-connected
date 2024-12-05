@@ -7,7 +7,7 @@ import {
   CardFooter,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Question } from '../../../types/interfaces';
 import { PropsWithChildren } from 'react';
 
@@ -17,13 +17,18 @@ interface QuestionCardProps {
 const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
   questions,
 }) => {
+  const navigate = useNavigate(); 
+
+  const handleCardClick = (id: string) => {
+    navigate(`/question/${id}`); 
+  };
   return (
     <div className='flex flex-col gap-6'>
       {questions.map((question) => {
         const numberOfAnswers = question.answers?.length || 0;
         return (
-          <Link to={`/question/${question.id}`} key={question.id}>
-            <Card>
+        
+            <Card onClick={() => handleCardClick(question.id)} >
               <CardHeader>
                 <CardTitle className='text-lg'>{question.title}</CardTitle>
                 <CardDescription>{question.author.fullname} •</CardDescription>
@@ -51,7 +56,7 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
                 </p>
               </CardFooter>
             </Card>
-          </Link>
+     
         );
       })}
     </div>
