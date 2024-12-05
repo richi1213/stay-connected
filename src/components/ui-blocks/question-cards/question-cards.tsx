@@ -34,9 +34,9 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
                 {question.author.fullname} •{' '}
                 {question.created_at.substring(0, 10)}
               </CardDescription>
-              {question.answers.some((answer) => answer.isCorrect) && (
+              {/* {question.answers.some((answer) => answer.isCorrect) && (
                 <div className='text-sm text-green-500'>Correct</div>
-              )}
+              )} */}
             </CardHeader>
             <CardContent>
               <p className='text-md text-muted-foreground'>
