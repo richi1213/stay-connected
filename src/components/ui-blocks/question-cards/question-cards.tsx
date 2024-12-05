@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { Question } from '../../../types/interfaces';
 import { PropsWithChildren } from 'react';
 import { format } from 'date-fns';
+import { Check } from 'lucide-react';
 interface QuestionCardProps {
   questions: Question[];
 }
@@ -28,11 +29,36 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
           new Date(question.created_at),
           'dd MMM yyyy',
         );
+        
+        const hasCorrectAnswer = question.answers.some((answer) => answer.isCorrect === true);
+
+        
         const numberOfAnswers = question.answers?.length || 0;
         return (
           <Card onClick={() => handleCardClick(question.id)} key={question.id}>
             <CardHeader>
-              <CardTitle className='text-lg'>{question.title}</CardTitle>
+              <div className="flex flex-col gap-2">
+              {hasCorrectAnswer ? (
+                <div className="inline-flex">
+                      <Badge
+                        variant='outline'
+                        className='border-green-300 bg-green-100 text-green-800 w-auto'
+                      >
+                        <Check className='mr-1 h-4 w-4' /> Answered
+                      </Badge>
+                      </div>
+                  ) : (
+                    <div className="inline-flex">
+                      <Badge
+                        variant='outline'
+                        className='border-gray-300 bg-gray-100 text-gray-800 w-auto'
+                      >
+                        Not Answered Yet
+                      </Badge>
+                      </div>
+                  )}
+                  <CardTitle className='text-lg'>{question.title}</CardTitle>
+                  </div>
               <CardDescription>
                 {question.author.fullname} • {formattedDate}
                 {/* {question.created_at.substring(0, 10)} */}
