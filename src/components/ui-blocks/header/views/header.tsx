@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import ScreenLgHeader from '@/components/layout/page-containers/screen-lg-header';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const Header: React.FC = () => {
@@ -28,6 +28,12 @@ const Header: React.FC = () => {
     navigate(`/?${queryString}`);
   };
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return (
     <div className='border-border-soft border-b'>
       <ScreenLgHeader>
@@ -42,6 +48,7 @@ const Header: React.FC = () => {
               name='search'
               value={searchKey}
               onChange={handleSearchText}
+              onKeyDown={handleKeyDown} // Add this line
             />
             <Button variant='secondary' onClick={handleSearch}>
               <Search />
