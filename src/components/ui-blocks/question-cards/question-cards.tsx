@@ -31,12 +31,11 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
             <CardHeader>
               <CardTitle className='text-lg'>{question.title}</CardTitle>
               <CardDescription>
-                {question.author.fullname} •{' '}
-                {question.created_at.substring(0, 10)}
+                {question.author.fullname} 
               </CardDescription>
-              {/* {question.answers.some((answer) => answer.isCorrect) && (
+              {question.answers.some((answer) => answer.isCorrect) && (
                 <div className='text-sm text-green-500'>Correct</div>
-              )} */}
+              )}
             </CardHeader>
             <CardContent>
               <p className='text-md text-muted-foreground'>
