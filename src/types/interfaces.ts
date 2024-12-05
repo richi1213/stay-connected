@@ -5,6 +5,8 @@ export interface Answer {
   author: string;
   isCorrect: boolean;
   date: string;
+  text: string;
+  likes_count: number;
 }
 export interface Question {
   id: string;
