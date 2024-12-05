@@ -31,7 +31,6 @@ const LoginPage = () => {
     mutationKey: ['login'],
     mutationFn: LoginUser,
     onSuccess: (data) => {
-      console.log(data?.access);
       setAuthToken(data?.access);
       setuser(data);
       navigate('/home');

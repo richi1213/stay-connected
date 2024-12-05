@@ -43,7 +43,6 @@ export const fetchAnswers = async (questionId: number): Promise<Answers> => {
 export const toggleAnswerLike = async (answerId: number): Promise<void> => {
   try {
     const response = await httpClient.patch(`/answers/${answerId}/like`);
-    console.log(`Successfully toggled like for answer ID ${answerId}`);
     return response.data;
   } catch (error) {
     console.error(`Error toggling like for answer ID ${answerId}:`, error);

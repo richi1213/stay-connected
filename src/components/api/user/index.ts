@@ -8,7 +8,6 @@ export const registerUser = async (userData: {
 }) => {
   try {
     const response = await httpClient.post('/user/register/', userData);
-    console.log('Registration successful:', response.data);
     return response.data;
   } catch (error) {
     console.error('Error during registration:', error);
@@ -22,7 +21,6 @@ export const LoginUser = async (userData: {
 }) => {
   try {
     const response = await httpClient.post('/api/token/', userData);
-    console.log('login successful:', response.data);
     return response.data;
   } catch (error) {
     console.error('Error during login:', error);
@@ -33,7 +31,6 @@ export const LoginUser = async (userData: {
 export const getQuestions = async () => {
   try {
     const response = await httpClient.get('/questions');
-    console.log('login successful:', response.data);
     return response.data;
   } catch (error) {
     console.error('Error during login:', error);
