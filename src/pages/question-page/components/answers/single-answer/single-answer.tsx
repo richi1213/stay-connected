@@ -146,7 +146,8 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
             )}
           </div>
 
-          {!isAuthorLoggedIn &&
+          {me?.id === questionAuthorId &&
+            !isAuthorLoggedIn &&
             (localIsCorrect ? (
               <Button
                 variant='outline'
