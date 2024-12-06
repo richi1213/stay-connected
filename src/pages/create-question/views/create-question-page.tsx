@@ -92,7 +92,7 @@ const CreateQuestionPage = () => {
           <FancyMultiSelect onTagsChange={handleTagsChange} />
           <p className='my-2 text-red-500'>{errors.tags?.message}</p>
         </div>
-        <Button>Add question</Button>
+        <Button>Add Question</Button>
       </FormContainer>
     </ScreenMd>
   );
