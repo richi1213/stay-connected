@@ -25,21 +25,21 @@ const UserRating = () => {
             ? authors.map((author: User) => {
                 return (
                   <div key={author.id}>
-                    <Link to={`/profile/${author.id}`} className="block"> 
-                    <div className='flex gap-2'>
-                      <Avatar className='size-12'>
-                        <AvatarImage src='https://github.com/shadcn.png' />
-                        <AvatarFallback>{author.fullname[0]}</AvatarFallback>
-                      </Avatar>
-                      <div className=''>
-                        <p className='text-md font-medium text-foreground'>
-                          {author.fullname}
-                        </p>
-                        <p className='text-muted-foreground'>
-                          Rating: {author.rating}
-                        </p>
+                    <Link to={`/profile/${author.id}`} className='block'>
+                      <div className='flex gap-2'>
+                        <Avatar className='size-12'>
+                          <AvatarImage src='https://github.com/shadcn.png' />
+                          <AvatarFallback>{author.fullname[0]}</AvatarFallback>
+                        </Avatar>
+                        <div className=''>
+                          <p className='text-md font-medium text-foreground'>
+                            {author.fullname}
+                          </p>
+                          <p className='text-muted-foreground'>
+                            Rating: {author.rating}
+                          </p>
+                        </div>
                       </div>
-                    </div>
                     </Link>
                   </div>
                 );

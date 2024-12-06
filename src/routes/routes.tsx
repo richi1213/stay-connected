@@ -51,12 +51,7 @@ const MainRoutes = () => {
               </LogoutGuard>
             }
           />
-            <Route
-            path='profile/:userId'
-            element={
-                <UserProfile />
-            }
-          />
+          <Route path='profile/:userId' element={<UserProfile />} />
           <Route
             path='createQuestion'
             element={

@@ -12,22 +12,28 @@ interface UserInfoProps {
 }
 const UserTabs: React.FC<PropsWithChildren<UserInfoProps>> = ({ user }) => {
   const { userId } = useParams<{ userId: string }>();
-  const me = useAtomValue(meAtom)
-  
+  const me = useAtomValue(meAtom);
+
   const isCurrentUser = userId === String(me?.id);
-  {console.log("match", isCurrentUser)}
-  {console.log("meid", me.id)}
-  {console.log("suerid", userId)}
-  
+  {
+    console.log('match', isCurrentUser);
+  }
+  {
+    console.log('meid', me.id);
+  }
+  {
+    console.log('suerid', userId);
+  }
+
   return (
     <div className='w-full'>
       <Tabs defaultValue='questions' className='w-full'>
         <TabsList className='w-full'>
           <TabsTrigger className='w-full' value='questions'>
-          {isCurrentUser ? 'My Questions' : `${user.fullname}'s Questions`}
+            {isCurrentUser ? 'My Questions' : `${user.fullname}'s Questions`}
           </TabsTrigger>
           <TabsTrigger className='w-full' value='answers'>
-          {isCurrentUser ? 'My Answers' : `${user.fullname}'s Answers`}
+            {isCurrentUser ? 'My Answers' : `${user.fullname}'s Answers`}
           </TabsTrigger>
         </TabsList>
         <TabsContent value='questions'>

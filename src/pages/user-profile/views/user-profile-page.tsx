@@ -8,22 +8,22 @@ import { useParams } from 'react-router-dom';
 
 const UserProfile = () => {
   const [profile, setProfile] = useState<User | null>(null);
-  const { userId } = useParams<{ userId: string }>(); 
+  const { userId } = useParams<{ userId: string }>();
   useEffect(() => {
     const fetchData = async () => {
-        if (!userId) return; 
-        console.log('userId:', userId);
-        try {
-          const res = await getUserProfile(userId); 
-          setProfile(res);
-        } catch (error) {
-          setProfile(null); 
-        }
-      };
+      if (!userId) return;
+      console.log('userId:', userId);
+      try {
+        const res = await getUserProfile(userId);
+        setProfile(res);
+      } catch (error) {
+        setProfile(null);
+      }
+    };
 
     fetchData();
   }, [userId]);
-  
+
   return (
     <ScreenLg>
       <div className='flex w-full flex-col gap-8'>
@@ -36,7 +36,6 @@ const UserProfile = () => {
           <>
             <p>Loading...</p>
             <p>{userId}ss</p>
-            
           </>
         )}
         {/* <p>{JSON.stringify(me)}</p> */}
