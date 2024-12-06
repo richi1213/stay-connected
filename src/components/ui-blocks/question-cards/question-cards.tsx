@@ -31,7 +31,7 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
         );
 
         const hasCorrectAnswer = question.answers.some(
-          (answer) => answer.isCorrect === true,
+          (answer) => answer.is_correct === true,
         );
 
         const numberOfAnswers = question.answers?.length || 0;
@@ -45,7 +45,7 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
                       variant='outline'
                       className='w-auto border-green-300 bg-green-100 text-green-800'
                     >
-                      <Check className='mr-1 h-4 w-4' /> Answered
+                      <Check className='mr-1 h-4 w-4' /> Resolved
                     </Badge>
                   </div>
                 ) : (
@@ -54,7 +54,7 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
                       variant='outline'
                       className='w-auto border-gray-300 bg-gray-100 text-gray-800'
                     >
-                      Not Answered Yet
+                      Unresolved
                     </Badge>
                   </div>
                 )}
