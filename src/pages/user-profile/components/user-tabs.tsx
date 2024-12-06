@@ -32,7 +32,7 @@ const UserTabs: React.FC<PropsWithChildren<UserInfoProps>> = ({ user }) => {
               <UserQuestionCards questions={user.questions} />
             ) : (
               <EmptyState
-                title="You haven't asked any questions yet"
+              title={isCurrentUser ? "You haven't asked any questions yet" : `${user.fullname} hasn't asked any questions yet`}
                 buttonTitle='Ask a Question'
                 to='/createQuestion'
               />
@@ -45,7 +45,7 @@ const UserTabs: React.FC<PropsWithChildren<UserInfoProps>> = ({ user }) => {
               <AnswerCards answers={user.answers} />
             ) : (
               <EmptyState
-                title="You haven't answered any questions yet"
+                title={isCurrentUser ? "You haven't answered any questions yet" : `${user.fullname} hasn't answered any questions yet`}
                 buttonTitle='Check recent questions'
                 to='/'
               />
