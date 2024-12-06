@@ -56,7 +56,6 @@ const CreateQuestionPage = () => {
   });
 
   const handleTagsChange = (tags: Framework[]) => {
-
     const formattedTags = tags.map((tag) => tag.value);
     setValue('tags', formattedTags);
   };
