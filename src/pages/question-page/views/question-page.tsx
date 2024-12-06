@@ -57,7 +57,10 @@ const QuestionPage: React.FC = () => {
     <div className='mb-8 mt-2 flex flex-col items-center'>
       <div className='w-5/6 space-y-10 text-foreground md:w-2/3'>
         <Question question={questionData} author={authorData} />
-        <Answers answers={answersData} />
+        <Answers
+          answers={answersData}
+          questionAuthorId={questionData.author_id}
+        />
         {me && <WriteAnswer />}
       </div>
     </div>
