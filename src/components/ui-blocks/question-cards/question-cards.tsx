@@ -7,7 +7,7 @@ import {
   CardFooter,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Question } from '../../../types/interfaces';
 import { PropsWithChildren } from 'react';
 import { format } from 'date-fns';
@@ -36,7 +36,7 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
 
         const numberOfAnswers = question.answers?.length || 0;
         return (
-          <Card onClick={() => handleCardClick(question.id)} key={question.id}>
+          <Card className="cursor-pointer" onClick={() => handleCardClick(question.id)} key={question.id}>
             <CardHeader>
               <div className='flex flex-col gap-2'>
                 {hasCorrectAnswer ? (
@@ -61,8 +61,10 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
                 <CardTitle className='text-lg'>{question.title}</CardTitle>
               </div>
               <CardDescription>
-                {question.author.fullname} • {formattedDate}
-                {/* {question.created_at.substring(0, 10)} */}
+                <Link className="hover:underline" to={`/profile/${question.author.id}`} onClick={(e) => e.stopPropagation()}>
+                {question.author.fullname} 
+                </Link>
+                • {formattedDate}
               </CardDescription>
             </CardHeader>
             <CardContent>
