@@ -18,7 +18,7 @@ const UserTabs: React.FC<PropsWithChildren<UserInfoProps>> = ({ user }) => {
   return (
     <div className='w-full'>
       <Tabs defaultValue='questions' className='w-full'>
-        <TabsList className='flex flex-col h-auto sm:flex-row sm:w-full'>
+        <TabsList className='flex h-auto flex-col sm:w-full sm:flex-row'>
           <TabsTrigger className='w-full' value='questions'>
             {isCurrentUser ? 'My Questions' : `${user.fullname}'s Questions`}
           </TabsTrigger>
