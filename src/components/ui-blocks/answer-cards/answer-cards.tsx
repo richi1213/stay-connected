@@ -10,6 +10,7 @@ import { Answer } from '../../../types/interfaces';
 import { PropsWithChildren } from 'react';
 import { Button } from '@/components/ui/button';
 import { Check, ThumbsUp } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface AnswerCardProps {
   answers: Answer[];
@@ -21,22 +22,19 @@ const AnswerCards: React.FC<PropsWithChildren<AnswerCardProps>> = ({
   return (
     <div className='flex flex-col gap-6'>
       {answers.map((answer) => {
-        // const navigate = useNavigate();
+        const navigate = useNavigate();
 
-        // const handleCardClick = (id: string) => {
-        //     console.log("qid", answer.questionId)
-        //   navigate(`/question/${id}`);
-        // };
+        const handleCardClick = (id: string) => {
+          console.log('qid', answer.question_id);
+          navigate(`/question/${id}`);
+        };
 
         const truncatedText =
           answer.text.length > MAX_LENGTH
             ? answer.text.substring(0, MAX_LENGTH) + '...'
             : answer.text;
         return (
-          <Card
-            // onClick={() => handleCardClick(answer.questionId)}
-            key={answer.id}
-          >
+          <Card key={answer.id}>
             <CardHeader>
               <div className='flex flex-col gap-2'>
                 <div>
@@ -73,8 +71,12 @@ const AnswerCards: React.FC<PropsWithChildren<AnswerCardProps>> = ({
 
             <CardFooter className='flex flex-col items-start gap-4 sm:flex-row sm:justify-between'>
               <div className='flex gap-2'>
-                <Button variant='secondary'>View Question</Button>
-                {/* <Button variant='secondary' onClick={() => handleCardClick(answer.questionId)}>View Question</Button> */}
+                <Button
+                  variant='secondary'
+                  onClick={() => handleCardClick(answer.question_id.toString())}
+                >
+                  View Question
+                </Button>
               </div>
             </CardFooter>
           </Card>
