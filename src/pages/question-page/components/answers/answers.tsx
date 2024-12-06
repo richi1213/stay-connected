@@ -1,7 +1,7 @@
 import { AnswersProps } from '@/pages/question-page/components/answers/answers.types';
 import SingleAnswer from '@/pages/question-page/components/answers/single-answer/single-answer';
 
-const Answers: React.FC<AnswersProps> = ({ answers }) => {
+const Answers: React.FC<AnswersProps> = ({ answers, questionAuthorId }) => {
   return (
     <div className='mt-6 space-y-6'>
       <h2 className='text-xl font-semibold'>Answers</h2>
@@ -14,6 +14,7 @@ const Answers: React.FC<AnswersProps> = ({ answers }) => {
             likes_count={answer.likes_count}
             is_correct={answer.is_correct}
             author={answer.author}
+            questionAuthorId={questionAuthorId}
           />
         ))}
       </div>

@@ -13,4 +13,9 @@ export type Answer = {
 
 export type AnswersProps = {
   answers: Answer[];
+  questionAuthorId: number;
+};
+
+export type ExtendedAnswer = Answer & {
+  questionAuthorId: number;
 };

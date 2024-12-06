@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Toggle } from '@/components/ui/toggle';
-import { ThumbsUp, Highlighter, Check, Dot, Star } from 'lucide-react';
+import { ThumbsUp, Highlighter, Check, Dot, Star, Speech } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -12,7 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { Answer } from '@/pages/question-page/components/answers/answers.types';
+import { ExtendedAnswer } from '@/pages/question-page/components/answers/answers.types';
 import { useAtomValue } from 'jotai';
 import { meAtom } from '@/store/auth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -22,17 +22,19 @@ import {
 } from '@/pages/question-page/api';
 import { useParams } from 'react-router-dom';
 
-const SingleAnswer: React.FC<Answer> = ({
+const SingleAnswer: React.FC<ExtendedAnswer> = ({
   id: answerId,
   text,
   likes_count,
   is_correct,
   author,
+  questionAuthorId,
 }) => {
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
   const me = useAtomValue(meAtom);
   const isAuthorLoggedIn = me?.id === author.id;
+  const isQuestionAuthor = questionAuthorId === author.id;
 
   const queryClient = useQueryClient();
 
@@ -47,7 +49,7 @@ const SingleAnswer: React.FC<Answer> = ({
   const { mutate: toggleLike } = useMutation({
     mutationFn: () => toggleAnswerLike(answerId),
     onMutate: async () => {
-      const previousAnswers = queryClient.getQueryData<Answer[]>([
+      const previousAnswers = queryClient.getQueryData<ExtendedAnswer[]>([
         'answers',
         id,
       ]);
@@ -81,7 +83,7 @@ const SingleAnswer: React.FC<Answer> = ({
   const { mutate: acceptAnswer } = useMutation({
     mutationFn: () => markAnswerAsCorrect(answerId),
     onMutate: async () => {
-      const previousAnswers = queryClient.getQueryData<Answer[]>([
+      const previousAnswers = queryClient.getQueryData<ExtendedAnswer[]>([
         'answers',
         id,
       ]);
@@ -119,25 +121,39 @@ const SingleAnswer: React.FC<Answer> = ({
     <Card className='w-full border-none bg-background text-foreground'>
       <CardContent className='space-y-2 p-4'>
         <div className='flex items-center justify-between'>
-          <div className='flex items-center gap-1'>
+          <div className='flex items-center gap-1 sm:gap-3'>
             <Avatar>
               <AvatarImage src='https://github.com/shadcn.png' />
               <AvatarFallback>{author.fullname.charAt(0)}</AvatarFallback>
             </Avatar>
             <span className='font-medium'>{author.fullname}</span>
             <span className='flex items-center gap-0.5 text-sm text-primary'>
-              <Dot className='text-accent-foreground' />
+              <Dot className='hidden text-accent-foreground sm:block' />
               <Star className='size-4' />
               {author.rating}
             </span>
+            {isQuestionAuthor && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className='ml-3'>
+                      <Speech className='size-5 font-extrabold text-green-600' />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent className='bg-primary text-primary-foreground'>
+                    <p>Question Author</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
           </div>
 
           {localIsCorrect ? (
             <Badge
               variant='outline'
-              className='border-green-300 bg-green-100 text-green-800'
+              className='ml-2 border-green-300 bg-green-100 px-0.5 text-green-800'
             >
-              <Check className='mr-0 size-3.5 sm:mr-1 sm:size-4' />{' '}
+              <Check className='mr-0.5 size-3.5 sm:mr-1 sm:size-4' />{' '}
               <span className='hidden sm:block'>Accepted</span>
             </Badge>
           ) : (
