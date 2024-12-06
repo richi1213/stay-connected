@@ -20,14 +20,18 @@ const Header: React.FC = () => {
   };
 
   const handleSearch = () => {
-    const tags = searchParams.get('tags');
+    // Retrieve all existing tags from the search parameters
+    const tags = searchParams.getAll('tags');
+
+    // Construct the new query string
     const queryString = [
       searchKey.trim() ? `search=${encodeURIComponent(searchKey.trim())}` : '',
-      tags ? `tags=${tags}` : '',
+      ...tags.map((tag) => `tags=${encodeURIComponent(tag)}`), // Retain all current tags
     ]
       .filter(Boolean)
       .join('&');
 
+    // Navigate to the updated URL
     navigate(`/?${queryString}`);
   };
 

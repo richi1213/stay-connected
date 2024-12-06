@@ -2,24 +2,14 @@ import { getTags } from '@/components/api/tags/index.ts';
 import { useQuery } from '@tanstack/react-query';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Tags } from '@/types/types.ts';
-import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const TagSelector = () => {
   const [searchParams] = useSearchParams();
-  const search = searchParams.get('search');
-  const [searchPath, setSearchPath] = useState<string[]>();
-  const location = useLocation();
-  const locationSearch = location.search;
-  useEffect(() => {
-    if (locationSearch != '') {
-      const newArry = locationSearch.replace('?', '').replace(/tags=/gi, '');
-      const tagsArray = newArry.split('&');
-      setSearchPath(tagsArray);
-    }
-  }, [locationSearch]);
-
   const navigate = useNavigate();
+
+  const search = searchParams.get('search') || '';
+  const selectedTags = searchParams.getAll('tags');
 
   const { data: tags } = useQuery({
     queryKey: ['getTagsList'],
@@ -27,15 +17,14 @@ const TagSelector = () => {
   });
 
   const handleTags = (value: string[]) => {
-    const path = [...value].join('&tags=');
-    setSearchPath(value);
-    const tagsPath = value.length > 0 ? `tags=${path}` : '';
-    const searchPath = search
-      ? `?search=${search}&${tagsPath}`
-      : value
-        ? `?${tagsPath}`
-        : '';
-    navigate(searchPath);
+    const newSearchParams = new URLSearchParams();
+
+    if (search.trim()) {
+      newSearchParams.set('search', search.trim());
+    }
+    value.forEach((tag) => newSearchParams.append('tags', tag)); // Properly append each tag
+
+    navigate(`/?${newSearchParams.toString()}`);
   };
 
   return (
@@ -46,7 +35,7 @@ const TagSelector = () => {
             variant='outline'
             type='multiple'
             size='sm'
-            value={searchPath}
+            value={selectedTags}
             onValueChange={handleTags}
           >
             {tags.map((tag: Tags) => {
