@@ -1,6 +1,6 @@
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
-import { Dot, Star } from 'lucide-react';
+import { Dot } from 'lucide-react';
 import { QuestionProps } from '@/pages/question-page/components/question/question.types';
 import useFormattedDate from '@/custom-hooks/use-formatted-date';
 
@@ -17,10 +17,7 @@ const Question: React.FC<QuestionProps> = ({ question, author }) => {
         <div className='flex items-center gap-1'>
           {`Posted by ${fullname} on ${formattedDate}`}
           <Dot className='text-accent-foreground' />
-          <span className='flex items-center gap-1 text-primary'>
-            <Star className='size-4' />
-            {rating}
-          </span>
+          <p className='text-muted-foreground'>Rating: {rating}</p>
         </div>
       </div>
       <Separator />
