@@ -26,12 +26,8 @@ const CreateQuestionPage = () => {
   const navigate = useNavigate();
   const { mutate: handleSendForm } = useMutation({
     mutationFn: (data: any) => sendQuestion(data),
-    onSuccess: (data) => {
-      console.log('Question submitted successfully', data);
+    onSuccess: () => {
       navigate('/');
-    },
-    onError: (error: Error) => {
-      console.error('Error submitting question', error.message);
     },
   });
 
@@ -60,9 +56,8 @@ const CreateQuestionPage = () => {
   });
 
   const handleTagsChange = (tags: Framework[]) => {
-    console.log('Selected tags', tags);
+
     const formattedTags = tags.map((tag) => tag.value);
-    console.log('formated', formattedTags);
     setValue('tags', formattedTags);
   };
 
@@ -73,7 +68,6 @@ const CreateQuestionPage = () => {
       </div>
       <FormContainer
         onSubmit={handleSubmit((data) => {
-          console.log('Form Submitted:', data);
           handleSendForm(data);
         })}
       >

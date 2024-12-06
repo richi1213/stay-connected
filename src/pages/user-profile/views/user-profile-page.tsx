@@ -12,7 +12,6 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (!userId) return;
-      console.log('userId:', userId);
       try {
         const res = await getUserProfile(userId);
         setProfile(res);
