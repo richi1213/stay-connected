@@ -40,7 +40,7 @@ const AnswerCards: React.FC<PropsWithChildren<AnswerCardProps>> = ({
             <CardHeader>
               <div className='flex flex-col gap-2'>
                 <div>
-                  {answer.isCorrect ? (
+                  {answer.is_correct ? (
                     <>
                       <Badge
                         variant='outline'
