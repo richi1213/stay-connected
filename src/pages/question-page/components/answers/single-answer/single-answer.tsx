@@ -108,24 +108,28 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
   });
 
   return (
-    <Card className='w-full border-none bg-background text-foreground'>
+    <Card className='w-full border-none bg-background text-foreground transition-all duration-300 ease-in-out hover:shadow-lg'>
       <CardContent className='space-y-2 p-4'>
         <div className='flex items-center justify-between'>
-          <div className='gap-1. flex items-center sm:gap-3'>
-            <Avatar>
+          <div className='flex items-center gap-1 sm:gap-3'>
+            <Avatar className='transition-transform duration-300 ease-in-out hover:scale-110'>
               <AvatarImage src='' />
               <AvatarFallback>{author.fullname.charAt(0)}</AvatarFallback>
             </Avatar>
-            <span className='font-medium'>{author.fullname}</span>
+            <span className='font-medium transition-colors duration-300 ease-in-out hover:text-primary'>
+              {author.fullname}
+            </span>
             <span className='flex items-center gap-0.5 text-sm text-primary'>
               <Dot className='hidden text-accent-foreground sm:block' />
-              <p className='text-muted-foreground'>Rating: {author.rating}</p>
+              <p className='text-muted-foreground transition-opacity duration-300 ease-in-out hover:opacity-75'>
+                Rating: {author.rating}
+              </p>
             </span>
             {isQuestionAuthor && (
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <span className='ml-3'>
+                    <span className='ml-3 transition-transform duration-300 ease-in-out hover:scale-110'>
                       <Speech className='size-5 font-extrabold text-green-600' />
                     </span>
                   </TooltipTrigger>
@@ -142,7 +146,7 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
             (is_correct ? (
               <Button
                 variant='outline'
-                className='h-8 w-8 border-green-300 bg-green-100 px-0.5 text-green-800 hover:border-red-800 hover:bg-red-200 sm:h-auto sm:w-auto'
+                className='h-8 w-8 border-green-300 bg-green-100 px-1 text-green-800 transition-all duration-300 ease-in-out hover:border-red-800 hover:bg-red-200 sm:h-auto sm:w-auto'
                 onClick={() => acceptAnswer()}
               >
                 <Check />
@@ -152,7 +156,7 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
               <>
                 <Button
                   variant='ghost'
-                  className='hidden text-primary sm:block'
+                  className='hidden text-primary transition-colors duration-300 ease-in-out hover:bg-primary hover:text-primary-foreground sm:block'
                   onClick={() => acceptAnswer()}
                 >
                   Mark as correct
@@ -163,7 +167,7 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
                       <TooltipTrigger asChild>
                         <Button
                           variant='ghost'
-                          className='text-primary'
+                          className='text-primary transition-colors duration-300 ease-in-out hover:bg-primary hover:text-primary-foreground'
                           onClick={() => acceptAnswer()}
                         >
                           <ListCheck />
@@ -179,7 +183,9 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
             ))}
         </div>
 
-        <div className='leading-relaxed'>{text}</div>
+        <div className='leading-relaxed transition-opacity duration-300 ease-in-out hover:opacity-90'>
+          {text}
+        </div>
 
         <div className='flex items-center gap-2 pt-2'>
           {me && (
@@ -187,10 +193,10 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
               variant='outline'
               size='sm'
               onClick={() => toggleLike()}
-              className='data-[state=on]:bg-primary data-[state=on]:text-primary-foreground'
+              className='transition-all duration-300 ease-in-out data-[state=on]:bg-primary data-[state=on]:text-primary-foreground'
               data-state={curUserLiked ? 'on' : 'off'}
             >
-              <ThumbsUp className='mr-1 h-4 w-4 transition-all hover:text-primary' />
+              <ThumbsUp className='mr-1 h-4 w-4 transition-all duration-300 ease-in-out hover:text-primary' />
               <span className='text-sm'>{likes_count}</span>
             </Toggle>
           )}
