@@ -44,7 +44,7 @@ const UserRating = () => {
                   </div>
                 );
               })
-            : 'No users yet'}
+            : 'No users with the rating yet'}
         </CardContent>
       </Card>
     </>
