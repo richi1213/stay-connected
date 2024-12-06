@@ -35,8 +35,8 @@ const Controls: React.FC = () => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar>
-                <AvatarImage src='https://github.com/shadcn.png' />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarImage src='' />
+                <AvatarFallback>{me.fullname[0]}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-56' align='end' forceMount>

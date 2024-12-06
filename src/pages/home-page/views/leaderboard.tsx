@@ -28,7 +28,7 @@ const UserRating = () => {
                     <Link to={`/profile/${author.id}`} className='block'>
                       <div className='flex gap-2'>
                         <Avatar className='size-12'>
-                          <AvatarImage src='https://github.com/shadcn.png' />
+                          <AvatarImage src='' />
                           <AvatarFallback>{author.fullname[0]}</AvatarFallback>
                         </Avatar>
                         <div className=''>
