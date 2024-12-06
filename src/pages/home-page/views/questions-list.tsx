@@ -23,15 +23,10 @@ const QuestionsList = () => {
         <QuestionCards questions={questions} />
       ) : (
         <EmptyState
-        title={
-        "There are no questions yet" 
-        }
-        buttonTitle='Ask a Question'
-        to='/createQuestion'
-      />
-        // <div className='mt-8 flex w-full flex-col space-y-8 text-center font-semibold md:space-y-6 lg:space-y-8'>
-        //   Data Not Found
-        // </div>
+          title={'There are no questions yet'}
+          buttonTitle='Ask a Question'
+          to='/createQuestion'
+        />
       )}
     </>
   );
