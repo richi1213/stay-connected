@@ -20,7 +20,7 @@ const UserRating = () => {
             <h2 className='mb-4 text-lg font-medium'>Leaderboard</h2>
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className='flex flex-col gap-6'>
           {authors
             ? authors.map((author: User) => {
                 return (
