@@ -1,6 +1,6 @@
 export interface Answer {
   id: string;
-  questionId: string;
+  question_id: number;
   description: string;
   author: string;
   is_correct: boolean;

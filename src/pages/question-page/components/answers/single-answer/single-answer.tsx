@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Toggle } from '@/components/ui/toggle';
 import { ThumbsUp, Check, Dot, Speech, ListCheck } from 'lucide-react';
@@ -35,16 +34,8 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
   const me = useAtomValue(meAtom);
   const queryClient = useQueryClient();
 
-  const isAuthorLoggedIn = me?.id === author.id;
   const isQuestionAuthor = questionAuthorId === author.id;
   const curUserLiked = me ? authors_of_likes.includes(me.id) : false;
-
-  const [isLiked, setIsLiked] = useState(curUserLiked);
-  const [localIsCorrect, setLocalIsCorrect] = useState(is_correct);
-
-  useEffect(() => {
-    setLocalIsCorrect(is_correct);
-  }, [is_correct]);
 
   const { mutate: toggleLike } = useMutation({
     mutationFn: () => toggleAnswerLike(answerId),
@@ -61,7 +52,10 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
             answer.id === answerId
               ? {
                   ...answer,
-                  likes_count: answer.likes_count + (isLiked ? -1 : 1),
+                  likes_count: answer.likes_count + (curUserLiked ? -1 : 1),
+                  authors_of_likes: curUserLiked
+                    ? authors_of_likes.filter((userId) => userId !== me?.id)
+                    : [...authors_of_likes, me?.id],
                 }
               : answer,
           ),
@@ -69,9 +63,6 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
       }
 
       return { previousAnswers };
-    },
-    onSuccess: () => {
-      setIsLiked((prev) => !prev);
     },
     onError: (_, __, context) => {
       if (context?.previousAnswers) {
@@ -98,7 +89,6 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
         );
       }
 
-      setLocalIsCorrect(true);
       return { previousAnswers };
     },
     onError: (_, __, context) => {
@@ -148,8 +138,8 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
           </div>
 
           {me?.id === questionAuthorId &&
-            !isAuthorLoggedIn &&
-            (localIsCorrect ? (
+            questionAuthorId !== author.id &&
+            (is_correct ? (
               <Button
                 variant='outline'
                 className='h-8 w-8 border-green-300 bg-green-100 px-0.5 text-green-800 hover:border-red-800 hover:bg-red-200 sm:h-auto sm:w-auto'
@@ -198,7 +188,7 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
               size='sm'
               onClick={() => toggleLike()}
               className='data-[state=on]:bg-primary data-[state=on]:text-primary-foreground'
-              data-state={isLiked ? 'on' : 'off'}
+              data-state={curUserLiked ? 'on' : 'off'}
             >
               <ThumbsUp className='mr-1 h-4 w-4 transition-all hover:text-primary' />
               <span className='text-sm'>{likes_count}</span>
