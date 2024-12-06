@@ -12,7 +12,6 @@ const QuestionsList = () => {
     queryFn: () => getQuestions(location.search),
   });
 
-
   return (
     <>
       {questions ? (
