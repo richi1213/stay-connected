@@ -14,7 +14,7 @@ const UserTabs: React.FC<PropsWithChildren<UserInfoProps>> = ({ user }) => {
   const { userId } = useParams<{ userId: string }>();
   const me = useAtomValue(meAtom);
   const isCurrentUser = userId === String(me?.id);
- 
+
   return (
     <div className='w-full'>
       <Tabs defaultValue='questions' className='w-full'>

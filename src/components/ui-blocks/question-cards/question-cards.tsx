@@ -36,7 +36,11 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
 
         const numberOfAnswers = question.answers?.length || 0;
         return (
-          <Card className="cursor-pointer" onClick={() => handleCardClick(question.id)} key={question.id}>
+          <Card
+            className='cursor-pointer'
+            onClick={() => handleCardClick(question.id)}
+            key={question.id}
+          >
             <CardHeader>
               <div className='flex flex-col gap-2'>
                 {hasCorrectAnswer ? (
@@ -61,8 +65,12 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
                 <CardTitle className='text-lg'>{question.title}</CardTitle>
               </div>
               <CardDescription>
-                <Link className="hover:underline" to={`/profile/${question.author.id}`} onClick={(e) => e.stopPropagation()}>
-                {question.author.fullname} 
+                <Link
+                  className='hover:underline'
+                  to={`/profile/${question.author.id}`}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {question.author.fullname}
                 </Link>
                 • {formattedDate}
               </CardDescription>
