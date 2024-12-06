@@ -4,19 +4,30 @@ import { User } from '../../../types/interfaces';
 import { PropsWithChildren } from 'react';
 import EmptyState from '@/components/ui-blocks/empty-state/empty-state';
 import AnswerCards from '@/components/ui-blocks/answer-cards/answer-cards';
+import { useParams } from 'react-router-dom';
+import { useAtomValue } from 'jotai';
+import { meAtom } from '@/store/auth';
 interface UserInfoProps {
   user: User;
 }
 const UserTabs: React.FC<PropsWithChildren<UserInfoProps>> = ({ user }) => {
+  const { userId } = useParams<{ userId: string }>();
+  const me = useAtomValue(meAtom)
+  
+  const isCurrentUser = userId === String(me?.id);
+  {console.log("match", isCurrentUser)}
+  {console.log("meid", me.id)}
+  {console.log("suerid", userId)}
+  
   return (
     <div className='w-full'>
       <Tabs defaultValue='questions' className='w-full'>
         <TabsList className='w-full'>
           <TabsTrigger className='w-full' value='questions'>
-            My Questions
+          {isCurrentUser ? 'My Questions' : `${user.fullname}'s Questions`}
           </TabsTrigger>
           <TabsTrigger className='w-full' value='answers'>
-            My Answers
+          {isCurrentUser ? 'My Answers' : `${user.fullname}'s Answers`}
           </TabsTrigger>
         </TabsList>
         <TabsContent value='questions'>

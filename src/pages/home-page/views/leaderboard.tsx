@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useQuery } from '@tanstack/react-query';
 import { getUsers } from '@/components/api/leaderboard';
 import { User } from '@/types/interfaces';
+import { Link } from 'react-router';
 
 const UserRating = () => {
   const { data: authors } = useQuery({
@@ -24,6 +25,7 @@ const UserRating = () => {
             ? authors.map((author: User) => {
                 return (
                   <div key={author.id}>
+                    <Link to={`/profile/${author.id}`} className="block"> 
                     <div className='flex gap-2'>
                       <Avatar className='size-12'>
                         <AvatarImage src='https://github.com/shadcn.png' />
@@ -38,6 +40,7 @@ const UserRating = () => {
                         </p>
                       </div>
                     </div>
+                    </Link>
                   </div>
                 );
               })
