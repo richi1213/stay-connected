@@ -11,9 +11,9 @@ const QuestionsList = () => {
     queryKey: ['getQuestionsList', location.search],
     queryFn: () => getQuestions(location.search),
   });
-
   return (
     <>
+      {questions?.length === 0 && <EmptyState title='Nothing found' to='' />}
       {questions ? (
         <QuestionCards questions={questions} />
       ) : (

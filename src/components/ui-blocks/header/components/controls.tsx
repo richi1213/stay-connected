@@ -29,14 +29,14 @@ const Controls: React.FC = () => {
       {me ? (
         <div className='flex items-center gap-4'>
           <Link to='createQuestion'>
-            <Button variant='default'>Add</Button>
+            <Button variant='default'>Add Question</Button>
           </Link>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar>
-                <AvatarImage src='https://github.com/shadcn.png' />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarImage src='' />
+                <AvatarFallback>{me.fullname[0]}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-56' align='end' forceMount>

@@ -25,7 +25,6 @@ const AnswerCards: React.FC<PropsWithChildren<AnswerCardProps>> = ({
         const navigate = useNavigate();
 
         const handleCardClick = (id: string) => {
-          console.log('qid', answer.question_id);
           navigate(`/question/${id}`);
         };
 

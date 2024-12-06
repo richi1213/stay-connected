@@ -113,7 +113,7 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
         <div className='flex items-center justify-between'>
           <div className='gap-1. flex items-center sm:gap-3'>
             <Avatar>
-              <AvatarImage src='https://github.com/shadcn.png' />
+              <AvatarImage src='' />
               <AvatarFallback>{author.fullname.charAt(0)}</AvatarFallback>
             </Avatar>
             <span className='font-medium'>{author.fullname}</span>

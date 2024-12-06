@@ -16,7 +16,7 @@ const UserInfo: React.FC<PropsWithChildren<UserInfoProps>> = ({ user }) => {
       <CardHeader className='flex flex-row items-center gap-4'>
         <div>
           <Avatar className='size-12 md:size-24'>
-            <AvatarImage src='https://github.com/shadcn.png' />
+            <AvatarImage src='' />
             <AvatarFallback>{user.fullname[0]}</AvatarFallback>
           </Avatar>
         </div>

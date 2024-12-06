@@ -20,10 +20,8 @@ const Header: React.FC = () => {
   };
 
   const handleSearch = () => {
-    // Retrieve all existing tags from the search parameters
     const tags = searchParams.getAll('tags');
 
-    // Construct the new query string
     const queryString = [
       searchKey.trim() ? `search=${encodeURIComponent(searchKey.trim())}` : '',
       ...tags.map((tag) => `tags=${encodeURIComponent(tag)}`), // Retain all current tags
@@ -31,7 +29,6 @@ const Header: React.FC = () => {
       .filter(Boolean)
       .join('&');
 
-    // Navigate to the updated URL
     navigate(`/?${queryString}`);
   };
 
@@ -55,7 +52,7 @@ const Header: React.FC = () => {
               name='search'
               value={searchKey}
               onChange={handleSearchText}
-              onKeyDown={handleKeyDown} // Add this line
+              onKeyDown={handleKeyDown}
             />
             <Button variant='secondary' onClick={handleSearch}>
               <Search />
