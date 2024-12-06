@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Toggle } from '@/components/ui/toggle';
-import { ThumbsUp, Highlighter, Check, Dot, Star, Speech } from 'lucide-react';
+import { ThumbsUp, Check, Dot, Speech, ListCheck } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import {
@@ -121,7 +120,7 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
     <Card className='w-full border-none bg-background text-foreground'>
       <CardContent className='space-y-2 p-4'>
         <div className='flex items-center justify-between'>
-          <div className='flex items-center gap-1 sm:gap-3'>
+          <div className='gap-1. flex items-center sm:gap-3'>
             <Avatar>
               <AvatarImage src='https://github.com/shadcn.png' />
               <AvatarFallback>{author.fullname.charAt(0)}</AvatarFallback>
@@ -129,8 +128,7 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
             <span className='font-medium'>{author.fullname}</span>
             <span className='flex items-center gap-0.5 text-sm text-primary'>
               <Dot className='hidden text-accent-foreground sm:block' />
-              <Star className='size-4' />
-              {author.rating}
+              <p className='text-muted-foreground'>Rating: {author.rating}</p>
             </span>
             {isQuestionAuthor && (
               <TooltipProvider>
@@ -148,34 +146,45 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
             )}
           </div>
 
-          {localIsCorrect ? (
-            <Badge
-              variant='outline'
-              className='ml-2 border-green-300 bg-green-100 px-0.5 text-green-800'
-            >
-              <Check className='mr-0.5 size-3.5 sm:mr-1 sm:size-4' />{' '}
-              <span className='hidden sm:block'>Accepted</span>
-            </Badge>
-          ) : (
-            isAuthorLoggedIn && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      variant='ghost'
-                      className='text-primary'
-                      onClick={() => acceptAnswer()}
-                    >
-                      <Highlighter />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent className='bg-green-50 text-secondary-foreground'>
-                    <p>Mark this answer as accepted</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            )
-          )}
+          {!isAuthorLoggedIn &&
+            (localIsCorrect ? (
+              <Button
+                variant='outline'
+                className='h-8 w-8 border-green-300 bg-green-100 px-0.5 text-green-800 hover:border-red-800 hover:bg-red-200 sm:h-auto sm:w-auto'
+                onClick={() => acceptAnswer()}
+              >
+                <Check />
+                <span className='hidden sm:block'>Accepted</span>
+              </Button>
+            ) : (
+              <>
+                <Button
+                  variant='ghost'
+                  className='hidden text-primary sm:block'
+                  onClick={() => acceptAnswer()}
+                >
+                  Mark as correct
+                </Button>
+                <div className='sm:hidden'>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant='ghost'
+                          className='text-primary'
+                          onClick={() => acceptAnswer()}
+                        >
+                          <ListCheck />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent className='bg-green-50 text-secondary-foreground'>
+                        <p>Mark this answer as accepted</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+              </>
+            ))}
         </div>
 
         <div className='leading-relaxed'>{text}</div>
