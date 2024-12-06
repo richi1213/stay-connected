@@ -7,7 +7,6 @@ export interface Answer {
   date: string;
   text: string;
   likes_count: number;
-  
 }
 export interface Question {
   id: string;

@@ -25,7 +25,7 @@ const AnswerCards: React.FC<PropsWithChildren<AnswerCardProps>> = ({
         const navigate = useNavigate();
 
         const handleCardClick = (id: string) => {
-            console.log("qid", answer.question_id)
+          console.log('qid', answer.question_id);
           navigate(`/question/${id}`);
         };
 
@@ -34,10 +34,7 @@ const AnswerCards: React.FC<PropsWithChildren<AnswerCardProps>> = ({
             ? answer.text.substring(0, MAX_LENGTH) + '...'
             : answer.text;
         return (
-          <Card
-           
-            key={answer.id}
-          >
+          <Card key={answer.id}>
             <CardHeader>
               <div className='flex flex-col gap-2'>
                 <div>
@@ -74,8 +71,12 @@ const AnswerCards: React.FC<PropsWithChildren<AnswerCardProps>> = ({
 
             <CardFooter className='flex flex-col items-start gap-4 sm:flex-row sm:justify-between'>
               <div className='flex gap-2'>
-                <Button variant='secondary' onClick={() => handleCardClick(answer.question_id.toString())}>View Question</Button>
-               
+                <Button
+                  variant='secondary'
+                  onClick={() => handleCardClick(answer.question_id.toString())}
+                >
+                  View Question
+                </Button>
               </div>
             </CardFooter>
           </Card>
