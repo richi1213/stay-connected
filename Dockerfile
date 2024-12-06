@@ -1,5 +1,5 @@
 # Base image
-FROM node:18-alpine AS BUILD_IMAGE
+FROM node:18-alpine AS build_image
 
 # Set working directory
 WORKDIR /app/react-app
@@ -18,7 +18,7 @@ COPY . .
 RUN npm run build
 
 # Production stage
-FROM node:18-alpine AS PRODUCTION_IMAGE
+FROM node:18-alpine AS production_image
 
 WORKDIR /app/react-app
 
