@@ -12,6 +12,7 @@ const Answers: React.FC<AnswersProps> = ({ answers, questionAuthorId }) => {
             id={answer.id}
             text={answer.text}
             likes_count={answer.likes_count}
+            authors_of_likes={answer.authors_of_likes}
             is_correct={answer.is_correct}
             author={answer.author}
             questionAuthorId={questionAuthorId}

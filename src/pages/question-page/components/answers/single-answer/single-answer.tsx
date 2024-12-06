@@ -25,6 +25,7 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
   id: answerId,
   text,
   likes_count,
+  authors_of_likes,
   is_correct,
   author,
   questionAuthorId,
@@ -32,13 +33,13 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
   const me = useAtomValue(meAtom);
-  const isAuthorLoggedIn = me?.id === author.id;
-  const isQuestionAuthor = questionAuthorId === author.id;
-
   const queryClient = useQueryClient();
 
-  // Directly calculate initial like status based on likes_count
-  const [isLiked, setIsLiked] = useState(likes_count > 0);
+  const isAuthorLoggedIn = me?.id === author.id;
+  const isQuestionAuthor = questionAuthorId === author.id;
+  const curUserLiked = me ? authors_of_likes.includes(me.id) : false;
+
+  const [isLiked, setIsLiked] = useState(curUserLiked);
   const [localIsCorrect, setLocalIsCorrect] = useState(is_correct);
 
   useEffect(() => {
