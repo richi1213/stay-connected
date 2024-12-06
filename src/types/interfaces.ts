@@ -1,12 +1,13 @@
 export interface Answer {
   id: string;
-  questionId: string;
+  question_id: number;
   description: string;
   author: string;
   is_correct: boolean;
   date: string;
   text: string;
   likes_count: number;
+  
 }
 export interface Question {
   id: string;
