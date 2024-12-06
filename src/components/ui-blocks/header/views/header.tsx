@@ -22,14 +22,12 @@ const Header: React.FC = () => {
   const handleSearch = () => {
     const tags = searchParams.getAll('tags');
 
-
     const queryString = [
       searchKey.trim() ? `search=${encodeURIComponent(searchKey.trim())}` : '',
       ...tags.map((tag) => `tags=${encodeURIComponent(tag)}`), // Retain all current tags
     ]
       .filter(Boolean)
       .join('&');
-
 
     navigate(`/?${queryString}`);
   };
@@ -54,7 +52,7 @@ const Header: React.FC = () => {
               name='search'
               value={searchKey}
               onChange={handleSearchText}
-              onKeyDown={handleKeyDown} 
+              onKeyDown={handleKeyDown}
             />
             <Button variant='secondary' onClick={handleSearch}>
               <Search />
