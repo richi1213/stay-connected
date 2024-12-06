@@ -15,7 +15,7 @@ export const LogoutGuard: React.FC<PropsWithChildren> = ({ children }) => {
   }
 
   if (!token) {
-    return <Navigate to='/home' />;
+    return <Navigate to='/login' />;
   }
 
   return children || <Outlet />;
