@@ -11,12 +11,10 @@ const QuestionsList = () => {
     queryKey: ['getQuestionsList', location.search],
     queryFn: () => getQuestions(location.search),
   });
-console.log("searched", questions)
+  console.log('searched', questions);
   return (
     <>
-    {questions?.length === 0 && 
-    <EmptyState title="Nothing found" to=""/>
-    }
+      {questions?.length === 0 && <EmptyState title='Nothing found' to='' />}
       {questions ? (
         <QuestionCards questions={questions} />
       ) : (
