@@ -32,7 +32,7 @@ const UserRating = () => {
                           <AvatarFallback>{author.fullname[0]}</AvatarFallback>
                         </Avatar>
                         <div className=''>
-                          <p className='text-md font-medium text-foreground'>
+                          <p className='hover:underline text-md font-medium text-foreground'>
                             {author.fullname}
                           </p>
                           <p className='text-muted-foreground'>
