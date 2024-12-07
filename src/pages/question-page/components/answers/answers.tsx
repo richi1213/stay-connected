@@ -6,7 +6,7 @@ const Answers: React.FC<AnswersProps> = ({ answers, questionAuthorId }) => {
     <div className='mt-6 space-y-6'>
       <h2 className='text-xl font-semibold'>Answers</h2>
       <div className='space-y-5'>
-        {answers.map((answer) => (
+        {answers.length > 0 ? answers.map((answer) => (
           <SingleAnswer
             key={answer.id}
             id={answer.id}
@@ -17,7 +17,7 @@ const Answers: React.FC<AnswersProps> = ({ answers, questionAuthorId }) => {
             author={answer.author}
             questionAuthorId={questionAuthorId}
           />
-        ))}
+        )) :  <p className="text-muted-foreground">This question isn't answered yet</p>}
       </div>
     </div>
   );
