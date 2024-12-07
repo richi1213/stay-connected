@@ -130,7 +130,9 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
               <p className='text-muted-foreground'>Rating: {author.rating}</p>
             </span> */}
             {isQuestionAuthor && (
-              <p className='text-sm text-muted-foreground'>Answer by the author</p>
+              <p className='text-sm text-muted-foreground'>
+                Answer by the author
+              </p>
               // <TooltipProvider>
               //   <Tooltip>
               //     <TooltipTrigger asChild>
