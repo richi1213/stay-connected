@@ -116,15 +116,21 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
               <AvatarImage src='' />
               <AvatarFallback>{author.fullname.charAt(0)}</AvatarFallback>
             </Avatar>
-            {isQuestionAuthor ? "" : <p className='text-sm text-muted-foreground'>{author.fullname} • Rating: {author.rating}</p> }
-           
+            {isQuestionAuthor ? (
+              ''
+            ) : (
+              <p className='text-sm text-muted-foreground'>
+                {author.fullname} • Rating: {author.rating}
+              </p>
+            )}
+
             {/* <span className='font-medium'>{author.fullname}</span>
             <span className='flex items-center gap-0.5 text-sm text-primary'>
               <Dot className='hidden text-accent-foreground sm:block' />
               <p className='text-muted-foreground'>Rating: {author.rating}</p>
             </span> */}
             {isQuestionAuthor && (
-               <p className='text-sm text-muted-foreground'>Answer by author</p>
+              <p className='text-sm text-muted-foreground'>Answer by author</p>
               // <TooltipProvider>
               //   <Tooltip>
               //     <TooltipTrigger asChild>

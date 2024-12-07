@@ -13,7 +13,9 @@ const Question: React.FC<QuestionProps> = ({ question, author }) => {
     <div className='mt-4 space-y-4'>
       <h2 className='text-3xl font-bold'>{title}</h2>
       <div>
-         <p className='text-sm text-muted-foreground'>Posted by {fullname} • Rating: {rating} • on {formattedDate}</p>
+        <p className='text-sm text-muted-foreground'>
+          Posted by {fullname} • Rating: {rating} • on {formattedDate}
+        </p>
       </div>
       <Separator />
       <div className='text-justify leading-relaxed'>{description}</div>
