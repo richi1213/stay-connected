@@ -2,7 +2,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Toggle } from '@/components/ui/toggle';
 import { Check, ThumbsUp } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { ExtendedAnswer } from '@/pages/question-page/components/answers/answers.types';
 import { useAtomValue } from 'jotai';
@@ -179,13 +178,13 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
                   </Badge>
                 ) : (
                   <>
-                   <Badge
-                    variant='outline'
-                    className='w-auto border-gray-300 bg-gray-100 text-gray-800 hover:cursor-pointer hover:bg-gray-200'
-                    onClick={() => acceptAnswer()}
-                  >
-                    Accept
-                  </Badge>
+                    <Badge
+                      variant='outline'
+                      className='w-auto border-gray-300 bg-gray-100 text-gray-800 hover:cursor-pointer hover:bg-gray-200'
+                      onClick={() => acceptAnswer()}
+                    >
+                      Accept
+                    </Badge>
                     {/* <Button variant='secondary' onClick={() => acceptAnswer()}>
                       Accept
                     </Button> */}
