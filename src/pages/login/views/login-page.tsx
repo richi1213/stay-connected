@@ -102,10 +102,10 @@ const LoginPage = () => {
                   render={({ field: { onChange, value } }) => {
                     return (
                       <Input
-                      onChange={(e) => {
-                        onChange(e);
-                        setErrorMsg("");
-                      }}
+                        onChange={(e) => {
+                          onChange(e);
+                          setErrorMsg('');
+                        }}
                         value={value}
                         type='password'
                         placeholder='password'
@@ -115,8 +115,8 @@ const LoginPage = () => {
                   }}
                 />
 
-                {(!errorMsg && errors.password) && (
-                // errors.password  && !ErrorMsg (
+                {!errorMsg && errors.password && (
+                  // errors.password  && !ErrorMsg (
                   <span role='alert' className='pt-2 text-sm text-destructive'>
                     Password should be at least 8 characters long
                     {/* {String(errors.password.message)} */}
