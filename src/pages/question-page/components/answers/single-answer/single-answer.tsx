@@ -111,7 +111,7 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
   };
 
   return (
-    <Card className='w-full border-none bg-background text-foreground'>
+    <Card className='shadow-none w-full border-none bg-gray-50 border border-neutral-200 text-foreground'>
       <CardContent className='space-y-2 p-4'>
         <div className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
           <div className='flex items-center gap-2'>
@@ -139,7 +139,7 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
               <p className='text-muted-foreground'>Rating: {author.rating}</p>
             </span> */}
             {isQuestionAuthor && (
-              <p className='text-muted-foreground'>Answered by the author</p>
+              <p className='text-xs font-medium  text-muted-foreground'>ANSWERED BY THE AUTHOR</p>
               // <TooltipProvider>
               //   <Tooltip>
               //     <TooltipTrigger asChild>
