@@ -1,6 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Toggle } from '@/components/ui/toggle';
-import { ThumbsUp } from 'lucide-react';
+import { Check, ThumbsUp } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
@@ -157,7 +157,7 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
             )}
           </div>
           <div>
-            {me?.id === questionAuthorId &&
+            {me?.id === questionAuthorId ?
               questionAuthorId !== author.id &&
               (is_correct ? (
                 // <Button
@@ -201,7 +201,19 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
                   </TooltipProvider>
                 </div> */}
                 </>
-              ))}
+              )) :
+              (is_correct && (
+                <>
+                  <Badge
+                    variant='outline'
+                    className='border-green-300 bg-green-100 text-green-800'
+                  >
+                    <Check className='mr-1 h-4 w-4' /> Accepted
+                  </Badge>
+                </>
+              ))
+              
+              }
           </div>
         </div>
 
