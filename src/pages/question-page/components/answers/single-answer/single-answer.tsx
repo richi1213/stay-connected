@@ -1,6 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Toggle } from '@/components/ui/toggle';
-import { ThumbsUp, Check, Dot, Speech, ListCheck } from 'lucide-react';
+import { ThumbsUp, Check, ListCheck } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
@@ -116,24 +116,27 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
               <AvatarImage src='' />
               <AvatarFallback>{author.fullname.charAt(0)}</AvatarFallback>
             </Avatar>
-            <span className='font-medium'>{author.fullname}</span>
+            {isQuestionAuthor ? "" : <p className='text-sm text-muted-foreground'>{author.fullname} • Rating: {author.rating}</p> }
+           
+            {/* <span className='font-medium'>{author.fullname}</span>
             <span className='flex items-center gap-0.5 text-sm text-primary'>
               <Dot className='hidden text-accent-foreground sm:block' />
               <p className='text-muted-foreground'>Rating: {author.rating}</p>
-            </span>
+            </span> */}
             {isQuestionAuthor && (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span className='ml-3'>
-                      <Speech className='size-5 font-extrabold text-green-600' />
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent className='bg-primary text-primary-foreground'>
-                    <p>Question Author</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+               <p className='text-sm text-muted-foreground'>Answer by author</p>
+              // <TooltipProvider>
+              //   <Tooltip>
+              //     <TooltipTrigger asChild>
+              //       <span className='ml-3'>
+              //         <Speech className='size-5 font-extrabold text-green-600' />
+              //       </span>
+              //     </TooltipTrigger>
+              //     <TooltipContent className='bg-primary text-primary-foreground'>
+              //       <p>Question Author</p>
+              //     </TooltipContent>
+              //   </Tooltip>
+              // </TooltipProvider>
             )}
           </div>
 
