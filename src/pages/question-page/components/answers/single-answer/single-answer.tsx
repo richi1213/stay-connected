@@ -179,9 +179,16 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
                   </Badge>
                 ) : (
                   <>
-                    <Button variant='secondary' onClick={() => acceptAnswer()}>
+                   <Badge
+                    variant='outline'
+                    className='w-auto border-gray-300 bg-gray-100 text-gray-800 hover:cursor-pointer hover:bg-gray-200'
+                    onClick={() => acceptAnswer()}
+                  >
+                    Accept
+                  </Badge>
+                    {/* <Button variant='secondary' onClick={() => acceptAnswer()}>
                       Accept
-                    </Button>
+                    </Button> */}
                     {/* <div className='sm:hidden'>
                   <TooltipProvider>
                     <Tooltip>
