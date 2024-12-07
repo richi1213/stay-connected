@@ -169,7 +169,8 @@ const RegistrationPage = () => {
                       required: 'This field is required',
                       minLength: {
                         value: 8,
-                        message: 'Your password must be at least 8 characters long',
+                        message:
+                          'Your password must be at least 8 characters long',
                       },
                     }}
                     render={({ field: { onChange, value } }) => {

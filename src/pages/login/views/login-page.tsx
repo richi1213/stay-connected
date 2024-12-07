@@ -95,7 +95,8 @@ const LoginPage = () => {
                     required: 'The password field cannot be empty',
                     minLength: {
                       value: 8,
-                      message: 'Your password must be at least 8 characters long',
+                      message:
+                        'Your password must be at least 8 characters long',
                     },
                   }}
                   render={({ field: { onChange, value } }) => {
@@ -110,14 +111,13 @@ const LoginPage = () => {
                     );
                   }}
                 />
-                
+
                 {errors.password && (
                   <span role='alert' className='pt-2 text-sm text-destructive'>
                     {/* Password should be at least 8 characters long */}
                     {String(errors.password.message)}
                   </span>
-                ) }
-
+                )}
 
                 {errorMsg && (
                   <span role='alert' className='pt-2 text-sm text-destructive'>
