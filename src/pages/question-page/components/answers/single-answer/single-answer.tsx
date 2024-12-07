@@ -227,4 +227,3 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
 };
 
 export default SingleAnswer;
-
