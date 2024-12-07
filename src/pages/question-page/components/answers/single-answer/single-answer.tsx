@@ -1,15 +1,9 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Toggle } from '@/components/ui/toggle';
-import { ThumbsUp, Check, ListCheck } from 'lucide-react';
+import { ThumbsUp } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
 import { ExtendedAnswer } from '@/pages/question-page/components/answers/answers.types';
 import { useAtomValue } from 'jotai';
 import { meAtom } from '@/store/auth';
@@ -19,6 +13,8 @@ import {
   markAnswerAsCorrect,
 } from '@/pages/question-page/api';
 import { useParams } from 'react-router-dom';
+import { Badge } from '@/components/ui/badge';
+import { useState } from 'react';
 
 const SingleAnswer: React.FC<ExtendedAnswer> = ({
   id: answerId,
@@ -33,7 +29,7 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
   const { toast } = useToast();
   const me = useAtomValue(meAtom);
   const queryClient = useQueryClient();
-
+  const [badgeText, setBadgeText] = useState('Accept');
   const isQuestionAuthor = questionAuthorId === author.id;
   const curUserLiked = me ? authors_of_likes.includes(me.id) : false;
 
@@ -106,12 +102,21 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
       queryClient.invalidateQueries(['answers', id]);
     },
   });
+  const handleMouseEnter = () => {
+    setBadgeText('Unaccept');
+  };
+
+  const handleMouseLeave = () => {
+    setBadgeText('Accepted');
+  };
 
   return (
     <Card className='w-full border-none bg-background text-foreground'>
       <CardContent className='space-y-2 p-4'>
-        <div className='flex items-center justify-between'>
-          <div className='gap-1. flex items-center sm:gap-3'>
+        <div className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
+
+          <div className="flex gap-2 items-center">
+          <div className='flex items-center gap-2'>
             <Avatar>
               <AvatarImage src='' />
               <AvatarFallback>{author.fullname.charAt(0)}</AvatarFallback>
@@ -119,19 +124,22 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
             {isQuestionAuthor ? (
               ''
             ) : (
-              <p className='text-sm text-muted-foreground'>
-                {author.fullname} • Rating: {author.rating}
+              <div className="flex flex-col">
+              <p className='font-medium text-foreground'>
+                {author.fullname}
               </p>
+              <p className='text-sm text-muted-foreground'>Rating: {author.rating}</p>
+              </div>
             )}
-
+            </div>
             {/* <span className='font-medium'>{author.fullname}</span>
             <span className='flex items-center gap-0.5 text-sm text-primary'>
               <Dot className='hidden text-accent-foreground sm:block' />
               <p className='text-muted-foreground'>Rating: {author.rating}</p>
             </span> */}
             {isQuestionAuthor && (
-              <p className='text-sm text-muted-foreground'>
-                Answer by the author
+              <p className='text-muted-foreground'>
+                Answered by the author
               </p>
               // <TooltipProvider>
               //   <Tooltip>
@@ -147,28 +155,37 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
               // </TooltipProvider>
             )}
           </div>
-
+          <div >
           {me?.id === questionAuthorId &&
             questionAuthorId !== author.id &&
             (is_correct ? (
-              <Button
+              // <Button
+              //   variant='outline'
+              //   className='h-8 w-8 border-green-300 bg-green-100 px-0.5 text-green-800 hover:border-red-800 hover:bg-red-200 sm:h-auto sm:w-auto'
+              //   onClick={() => acceptAnswer()}
+              // >
+              //   <Check />
+              //   <span className='hidden sm:block'>Accepted</span>
+              // </Button>
+              <Badge
                 variant='outline'
-                className='h-8 w-8 border-green-300 bg-green-100 px-0.5 text-green-800 hover:border-red-800 hover:bg-red-200 sm:h-auto sm:w-auto'
+                className='w-auto border-green-300 bg-green-100 text-green-800 hover:cursor-pointer hover:border-red-300 hover:bg-red-100 hover:text-red-800'
                 onClick={() => acceptAnswer()}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
               >
-                <Check />
-                <span className='hidden sm:block'>Accepted</span>
-              </Button>
+                {badgeText}
+              </Badge>
             ) : (
               <>
                 <Button
-                  variant='ghost'
-                  className='hidden text-primary sm:block'
+                  variant='secondary'
+                  
                   onClick={() => acceptAnswer()}
                 >
-                  Mark as correct
+                  Accept
                 </Button>
-                <div className='sm:hidden'>
+                {/* <div className='sm:hidden'>
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -185,9 +202,11 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
-                </div>
+                </div> */}
               </>
             ))}
+          </div>
+
         </div>
 
         <div className='leading-relaxed'>{text}</div>
