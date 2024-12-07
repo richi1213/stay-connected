@@ -114,23 +114,24 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
     <Card className='w-full border-none bg-background text-foreground'>
       <CardContent className='space-y-2 p-4'>
         <div className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
-
-          <div className="flex gap-2 items-center">
           <div className='flex items-center gap-2'>
-            <Avatar>
-              <AvatarImage src='' />
-              <AvatarFallback>{author.fullname.charAt(0)}</AvatarFallback>
-            </Avatar>
-            {isQuestionAuthor ? (
-              ''
-            ) : (
-              <div className="flex flex-col">
-              <p className='font-medium text-foreground'>
-                {author.fullname}
-              </p>
-              <p className='text-sm text-muted-foreground'>Rating: {author.rating}</p>
-              </div>
-            )}
+            <div className='flex items-center gap-2'>
+              <Avatar>
+                <AvatarImage src='' />
+                <AvatarFallback>{author.fullname.charAt(0)}</AvatarFallback>
+              </Avatar>
+              {isQuestionAuthor ? (
+                ''
+              ) : (
+                <div className='flex flex-col'>
+                  <p className='font-medium text-foreground'>
+                    {author.fullname}
+                  </p>
+                  <p className='text-sm text-muted-foreground'>
+                    Rating: {author.rating}
+                  </p>
+                </div>
+              )}
             </div>
             {/* <span className='font-medium'>{author.fullname}</span>
             <span className='flex items-center gap-0.5 text-sm text-primary'>
@@ -138,9 +139,7 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
               <p className='text-muted-foreground'>Rating: {author.rating}</p>
             </span> */}
             {isQuestionAuthor && (
-              <p className='text-muted-foreground'>
-                Answered by the author
-              </p>
+              <p className='text-muted-foreground'>Answered by the author</p>
               // <TooltipProvider>
               //   <Tooltip>
               //     <TooltipTrigger asChild>
@@ -155,37 +154,33 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
               // </TooltipProvider>
             )}
           </div>
-          <div >
-          {me?.id === questionAuthorId &&
-            questionAuthorId !== author.id &&
-            (is_correct ? (
-              // <Button
-              //   variant='outline'
-              //   className='h-8 w-8 border-green-300 bg-green-100 px-0.5 text-green-800 hover:border-red-800 hover:bg-red-200 sm:h-auto sm:w-auto'
-              //   onClick={() => acceptAnswer()}
-              // >
-              //   <Check />
-              //   <span className='hidden sm:block'>Accepted</span>
-              // </Button>
-              <Badge
-                variant='outline'
-                className='w-auto border-green-300 bg-green-100 text-green-800 hover:cursor-pointer hover:border-red-300 hover:bg-red-100 hover:text-red-800'
-                onClick={() => acceptAnswer()}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                {badgeText}
-              </Badge>
-            ) : (
-              <>
-                <Button
-                  variant='secondary'
-                  
+          <div>
+            {me?.id === questionAuthorId &&
+              questionAuthorId !== author.id &&
+              (is_correct ? (
+                // <Button
+                //   variant='outline'
+                //   className='h-8 w-8 border-green-300 bg-green-100 px-0.5 text-green-800 hover:border-red-800 hover:bg-red-200 sm:h-auto sm:w-auto'
+                //   onClick={() => acceptAnswer()}
+                // >
+                //   <Check />
+                //   <span className='hidden sm:block'>Accepted</span>
+                // </Button>
+                <Badge
+                  variant='outline'
+                  className='w-auto border-green-300 bg-green-100 text-green-800 hover:cursor-pointer hover:border-red-300 hover:bg-red-100 hover:text-red-800'
                   onClick={() => acceptAnswer()}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  Accept
-                </Button>
-                {/* <div className='sm:hidden'>
+                  {badgeText}
+                </Badge>
+              ) : (
+                <>
+                  <Button variant='secondary' onClick={() => acceptAnswer()}>
+                    Accept
+                  </Button>
+                  {/* <div className='sm:hidden'>
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -203,10 +198,9 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
                     </Tooltip>
                   </TooltipProvider>
                 </div> */}
-              </>
-            ))}
+                </>
+              ))}
           </div>
-
         </div>
 
         <div className='leading-relaxed'>{text}</div>
