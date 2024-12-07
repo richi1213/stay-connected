@@ -30,8 +30,8 @@ const Controls: React.FC = () => {
         <div className='flex items-center gap-4'>
           <Link to='createQuestion'>
             <Button variant='default'>
-            <span className="block sm:hidden">Ask</span> 
-            <span className="hidden sm:block">Ask a Question</span>
+              <span className='block sm:hidden'>Ask</span>
+              <span className='hidden sm:block'>Ask a Question</span>
             </Button>
           </Link>
 
