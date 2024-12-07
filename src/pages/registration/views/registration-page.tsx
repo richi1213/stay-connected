@@ -186,20 +186,15 @@ const RegistrationPage = () => {
                     }}
                   />
                   {errors.password && (
-                    <span
-                      role='alert'
-                      className='pt-2 text-sm text-destructive'
-                    >
+                    <p role='alert' className='pt-2 text-sm text-destructive'>
                       {String(errors.password.message)}
-                    </span>
+                    </p>
                   )}
                   {errorMsg.password && (
-                    <span
-                      role='alert'
-                      className='pt-2 text-sm text-destructive'
-                    >
-                      {String(errorMsg.password)}
-                    </span>
+                    <p role='alert' className='pt-2 text-sm text-destructive'>
+                      {/* {String(errorMsg.password)} */}
+                      This password is too common
+                    </p>
                   )}
                 </div>
                 <div>
