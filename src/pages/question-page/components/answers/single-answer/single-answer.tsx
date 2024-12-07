@@ -157,32 +157,32 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
             )}
           </div>
           <div>
-            {me?.id === questionAuthorId ?
-              questionAuthorId !== author.id &&
-              (is_correct ? (
-                // <Button
-                //   variant='outline'
-                //   className='h-8 w-8 border-green-300 bg-green-100 px-0.5 text-green-800 hover:border-red-800 hover:bg-red-200 sm:h-auto sm:w-auto'
-                //   onClick={() => acceptAnswer()}
-                // >
-                //   <Check />
-                //   <span className='hidden sm:block'>Accepted</span>
-                // </Button>
-                <Badge
-                  variant='outline'
-                  className='w-auto border-green-300 bg-green-100 text-green-800 hover:cursor-pointer hover:border-red-300 hover:bg-red-100 hover:text-red-800'
-                  onClick={() => acceptAnswer()}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  {badgeText}
-                </Badge>
-              ) : (
-                <>
-                  <Button variant='secondary' onClick={() => acceptAnswer()}>
-                    Accept
-                  </Button>
-                  {/* <div className='sm:hidden'>
+            {me?.id === questionAuthorId
+              ? questionAuthorId !== author.id &&
+                (is_correct ? (
+                  // <Button
+                  //   variant='outline'
+                  //   className='h-8 w-8 border-green-300 bg-green-100 px-0.5 text-green-800 hover:border-red-800 hover:bg-red-200 sm:h-auto sm:w-auto'
+                  //   onClick={() => acceptAnswer()}
+                  // >
+                  //   <Check />
+                  //   <span className='hidden sm:block'>Accepted</span>
+                  // </Button>
+                  <Badge
+                    variant='outline'
+                    className='w-auto border-green-300 bg-green-100 text-green-800 hover:cursor-pointer hover:border-red-300 hover:bg-red-100 hover:text-red-800'
+                    onClick={() => acceptAnswer()}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    {badgeText}
+                  </Badge>
+                ) : (
+                  <>
+                    <Button variant='secondary' onClick={() => acceptAnswer()}>
+                      Accept
+                    </Button>
+                    {/* <div className='sm:hidden'>
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -200,20 +200,18 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
                     </Tooltip>
                   </TooltipProvider>
                 </div> */}
-                </>
-              )) :
-              (is_correct && (
-                <>
-                  <Badge
-                    variant='outline'
-                    className='border-green-300 bg-green-100 text-green-800'
-                  >
-                    <Check className='mr-1 h-4 w-4' /> Accepted
-                  </Badge>
-                </>
-              ))
-              
-              }
+                  </>
+                ))
+              : is_correct && (
+                  <>
+                    <Badge
+                      variant='outline'
+                      className='border-green-300 bg-green-100 text-green-800'
+                    >
+                      <Check className='mr-1 h-4 w-4' /> Accepted
+                    </Badge>
+                  </>
+                )}
           </div>
         </div>
 
