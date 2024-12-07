@@ -65,8 +65,6 @@ const RegistrationPage = () => {
     },
   });
 
-  console.log(errorMsg);
-
   const onSubmit = (fieldValues: RegistrationType) => {
     register(fieldValues);
   };
