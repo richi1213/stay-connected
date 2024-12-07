@@ -29,7 +29,10 @@ const Controls: React.FC = () => {
       {me ? (
         <div className='flex items-center gap-4'>
           <Link to='createQuestion'>
-            <Button variant='default'>Add Question</Button>
+            <Button variant='default'>
+              <span className='block sm:hidden'>Ask</span>
+              <span className='hidden sm:block'>Ask a Question</span>
+            </Button>
           </Link>
 
           <DropdownMenu>

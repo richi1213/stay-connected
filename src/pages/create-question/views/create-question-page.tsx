@@ -63,7 +63,7 @@ const CreateQuestionPage = () => {
   return (
     <ScreenMd>
       <div className='my-4'>
-        <h1 className='text-2xl font-bold'>Add Question</h1>
+        <h1 className='text-2xl font-bold'>Ask a Question</h1>
       </div>
       <FormContainer
         onSubmit={handleSubmit((data) => {
@@ -85,7 +85,7 @@ const CreateQuestionPage = () => {
           <FancyMultiSelect onTagsChange={handleTagsChange} />
           <p className='my-2 text-red-500'>{errors.tags?.message}</p>
         </div>
-        <Button>Add Question</Button>
+        <Button>Ask a Question</Button>
       </FormContainer>
     </ScreenMd>
   );
