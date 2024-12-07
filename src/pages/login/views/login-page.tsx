@@ -62,10 +62,10 @@ const LoginPage = () => {
                   name='email'
                   control={control}
                   rules={{
-                    required: 'The field is empty.',
+                    required: 'Please enter your email address',
                     pattern: {
                       value: /\S+@\S+\.\S+/,
-                      message: 'Entered value does not match email format',
+                      message: 'Please enter a valid email address',
                     },
                   }}
                   render={({ field: { onChange, value } }) => {
@@ -81,7 +81,8 @@ const LoginPage = () => {
                 />
                 {errors.email && (
                   <span role='alert' className='pt-2 text-sm text-destructive'>
-                    {String(errors.email.message)}
+                    Please enter a valid email address
+                    {/* {String(errors.email.message)} */}
                   </span>
                 )}
               </div>
@@ -91,10 +92,10 @@ const LoginPage = () => {
                   name='password'
                   control={control}
                   rules={{
-                    required: 'The field is empty.',
+                    required: 'The password field cannot be empty',
                     minLength: {
                       value: 8,
-                      message: 'min length is 8',
+                      message: 'Your password must be at least 8 characters long',
                     },
                   }}
                   render={({ field: { onChange, value } }) => {
@@ -109,14 +110,19 @@ const LoginPage = () => {
                     );
                   }}
                 />
+                
                 {errors.password && (
                   <span role='alert' className='pt-2 text-sm text-destructive'>
+                    {/* Password should be at least 8 characters long */}
                     {String(errors.password.message)}
                   </span>
-                )}
+                ) }
+
+
                 {errorMsg && (
                   <span role='alert' className='pt-2 text-sm text-destructive'>
-                    {String(errorMsg)}
+                    Email and password do not match
+                    {/* {String(errorMsg)} */}
                   </span>
                 )}
               </div>

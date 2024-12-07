@@ -29,7 +29,7 @@ const SuccessMsg = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.9 }}
       >
-        Congratulations and welcome to the club
+        Please log in to continue
       </motion.p>
 
       <motion.div
