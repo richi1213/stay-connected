@@ -72,7 +72,7 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
                 >
                   {question.author.fullname}
                 </Link>
-                • {formattedDate}
+               {" "} • {formattedDate}
               </CardDescription>
             </CardHeader>
             <CardContent>

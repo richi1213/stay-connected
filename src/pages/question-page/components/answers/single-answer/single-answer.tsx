@@ -11,7 +11,7 @@ import {
   toggleAnswerLike,
   markAnswerAsCorrect,
 } from '@/pages/question-page/api';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Badge } from '@/components/ui/badge';
 import { useState } from 'react';
 
@@ -102,7 +102,7 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
     },
   });
   const handleMouseEnter = () => {
-    setBadgeText('Unaccept');
+    setBadgeText('Reject');
   };
 
   const handleMouseLeave = () => {
@@ -123,50 +123,30 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
                 ''
               ) : (
                 <div className='flex flex-col'>
-                  <p className='font-medium text-foreground'>
+                  <Link
+                    className='font-medium text-foreground hover:underline'
+                    to={`/profile/${author.id}`}
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     {author.fullname}
-                  </p>
+                  </Link>
+
                   <p className='text-sm text-muted-foreground'>
                     Rating: {author.rating}
                   </p>
                 </div>
               )}
             </div>
-            {/* <span className='font-medium'>{author.fullname}</span>
-            <span className='flex items-center gap-0.5 text-sm text-primary'>
-              <Dot className='hidden text-accent-foreground sm:block' />
-              <p className='text-muted-foreground'>Rating: {author.rating}</p>
-            </span> */}
             {isQuestionAuthor && (
               <p className='text-xs font-medium text-muted-foreground'>
                 ANSWERED BY THE AUTHOR
               </p>
-              // <TooltipProvider>
-              //   <Tooltip>
-              //     <TooltipTrigger asChild>
-              //       <span className='ml-3'>
-              //         <Speech className='size-5 font-extrabold text-green-600' />
-              //       </span>
-              //     </TooltipTrigger>
-              //     <TooltipContent className='bg-primary text-primary-foreground'>
-              //       <p>Question Author</p>
-              //     </TooltipContent>
-              //   </Tooltip>
-              // </TooltipProvider>
             )}
           </div>
           <div>
             {me?.id === questionAuthorId
               ? questionAuthorId !== author.id &&
                 (is_correct ? (
-                  // <Button
-                  //   variant='outline'
-                  //   className='h-8 w-8 border-green-300 bg-green-100 px-0.5 text-green-800 hover:border-red-800 hover:bg-red-200 sm:h-auto sm:w-auto'
-                  //   onClick={() => acceptAnswer()}
-                  // >
-                  //   <Check />
-                  //   <span className='hidden sm:block'>Accepted</span>
-                  // </Button>
                   <Badge
                     variant='outline'
                     className='w-auto border-green-300 bg-green-100 text-green-800 hover:cursor-pointer hover:border-red-300 hover:bg-red-100 hover:text-red-800'
@@ -185,27 +165,6 @@ const SingleAnswer: React.FC<ExtendedAnswer> = ({
                     >
                       Accept
                     </Badge>
-                    {/* <Button variant='secondary' onClick={() => acceptAnswer()}>
-                      Accept
-                    </Button> */}
-                    {/* <div className='sm:hidden'>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button
-                          variant='ghost'
-                          className='text-primary'
-                          onClick={() => acceptAnswer()}
-                        >
-                          <ListCheck />
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent className='bg-green-50 text-secondary-foreground'>
-                        <p>Mark this answer as accepted</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </div> */}
                   </>
                 ))
               : is_correct && (
