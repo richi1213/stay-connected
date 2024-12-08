@@ -71,8 +71,8 @@ const QuestionCards: React.FC<PropsWithChildren<QuestionCardProps>> = ({
                   onClick={(e) => e.stopPropagation()}
                 >
                   {question.author.fullname}
-                </Link>
-               {" "} • {formattedDate}
+                </Link>{' '}
+                • {formattedDate}
               </CardDescription>
             </CardHeader>
             <CardContent>
