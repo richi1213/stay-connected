@@ -37,7 +37,7 @@ const Controls: React.FC = () => {
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Avatar>
+              <Avatar className='hover:cursor-pointer'>
                 <AvatarImage src='' />
                 <AvatarFallback>{me.fullname[0]}</AvatarFallback>
               </Avatar>

@@ -2,10 +2,11 @@ import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { QuestionProps } from '@/pages/question-page/components/question/question.types';
 import useFormattedDate from '@/custom-hooks/use-formatted-date';
+import { Link } from 'react-router-dom';
 
 const Question: React.FC<QuestionProps> = ({ question, author }) => {
   const { title, description, created_at, tags } = question;
-  const { fullname, rating } = author;
+  const { fullname, rating, id } = author;
 
   const formattedDate = useFormattedDate(created_at);
 
@@ -14,7 +15,15 @@ const Question: React.FC<QuestionProps> = ({ question, author }) => {
       <h2 className='text-3xl font-bold'>{title}</h2>
       <div>
         <p className='text-sm text-muted-foreground'>
-          Posted by {fullname} • Rating: {rating} • on {formattedDate}
+          Posted by{' '}
+          <Link
+            className='hover:underline'
+            to={`/profile/${id}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {fullname}
+          </Link>
+          • Rating: {rating} • on {formattedDate}
         </p>
       </div>
       <Separator />
